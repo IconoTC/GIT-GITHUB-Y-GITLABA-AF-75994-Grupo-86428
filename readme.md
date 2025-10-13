@@ -1,13 +1,13 @@
 # Curso de Git
 
-- GIT, GITHUB Y GITLABA AF 75994 – Grupo 86428
+- GIT, GITHUB Y GITLAB AF 75994 – Grupo 86428
 - Duración: 25 horas
 - Modalidad: On-line
 - Fechas: 13, 14 , 15, 16 y 17 de Octubre 2025
-- Horario 9:30 – 14:30 hs
+- Horario 9:00 – 14:00 hs
 
 Formador: Alejandro Cerezo
-alce65@hotmail.es
+<alce65@hotmail.es>
 
 ## Contenidos
 
@@ -64,6 +64,8 @@ Desarrollo del curso en la carpeta Oficial -> [repo](https://github.com/IconoTC/
 
 ## Desarrollo del curso
 
+### Día 1 (Lunes 13 Octubre 2025)
+
 - Presentación profesor / alumnos
 - Introducción: Qué es un SCV y qué un SCV distribuido
 - IDE / Editor de código: Visual Studio Code (VSC)
@@ -83,25 +85,24 @@ Desarrollo del curso en la carpeta Oficial -> [repo](https://github.com/IconoTC/
 
 - [Descanso]
 
-<!-- ## Día 1 (Lunes 13 Octubre 2025)
-
 - Integración con otras herramientas y entornos
   - Clientes gráficos
   - Entornos de desarrollo
   - Repositorios remotos: GitHub, GitLab, Bitbucket
-- Ficheros Markdown
-  - Qué son
-  - Sintaxis básica
-  - Vista previa en VSC
 - Comprobar el repositorio.
   - git log
   - git show
   - git diff
 - Aliases
   - Qué son
-  - Cómo crearlos: `git config --global alias.co checkout` -->
+  - Cómo crearlos desde el CLI: `git config --global alias.co checkout`
+  - Crearlos editando el fichero de configuración: `git config --global -e`
+- Ficheros Markdown
+  - Qué son
+  - Sintaxis básica
+  - Vista previa en VSC
 
-<!-- ## Día 2 (Martes 14 Octubre 2025)
+<!-- ### Día 2 (Martes 14 Octubre 2025)
 
 - Git internals
   - Estructura de un repositorio git: .git
@@ -126,7 +127,7 @@ Desarrollo del curso en la carpeta Oficial -> [repo](https://github.com/IconoTC/
   - git checkout
   - git reset -->
 
-<!-- ## Día 3 (Miércoles 15 Octubre 2025)
+<!-- ### Día 3 (Miércoles 15 Octubre 2025)
 
 - Reescribiendo la historia (2)
   - Evolución de git checkout: Nuevos comandos git switch y git restore
@@ -168,7 +169,7 @@ Desarrollo del curso en la carpeta Oficial -> [repo](https://github.com/IconoTC/
     - git merge / git rebase
     - Conflictos -->
 
-<!-- ## Día 4 (Jueves 16 Octubre 2025)
+<!-- ### Día 4 (Jueves 16 Octubre 2025)
 
 - Repositorios remotos (continuación)
 
@@ -212,7 +213,7 @@ Desarrollo del curso en la carpeta Oficial -> [repo](https://github.com/IconoTC/
   - CI/CD
     - GitHub Pages -->
 
-<!-- ## Día 5 (Jueves 17 Octubre 2025)
+<!-- ### Día 5 (Jueves 17 Octubre 2025)
 
 - GitHub (continuación)
   - GitHub Pages

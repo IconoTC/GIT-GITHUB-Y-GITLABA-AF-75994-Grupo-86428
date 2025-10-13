@@ -40,10 +40,12 @@
         - [VSCode](#vscode)
       - [Repositorios remotos (hosting de repositorios)](#repositorios-remotos-hosting-de-repositorios)
       - [Comandos de conexión y uso del repositorio remoto (resumen)](#comandos-de-conexión-y-uso-del-repositorio-remoto-resumen)
-    - [Comprobar el repositorio](#comprobar-el-repositorio)
-      - [git log](#git-log)
-      - [git diff](#git-diff)
-    - [Alias](#alias)
+    - [AYUDAS EN EL USO DE GIT](#ayudas-en-el-uso-de-git)
+      - [Comprobar el repositorio](#comprobar-el-repositorio)
+        - [git log](#git-log)
+        - [git diff](#git-diff)
+      - [Alias](#alias)
+      - [Markdown](#markdown)
   - [Dia 2](#dia-2)
     - [Git internals: Plumbing commands](#git-internals-plumbing-commands)
       - [La carpeta .git](#la-carpeta-git)
@@ -839,9 +841,11 @@ Cualquiera que sea la forma en que se han creado, una vez que existe un remote, 
 - `git push`
 - `git pull`
 
-### Comprobar el repositorio
+### AYUDAS EN EL USO DE GIT
 
-#### git log
+#### Comprobar el repositorio
+
+##### git log
 
 ```shell
 git log
@@ -906,9 +910,9 @@ git log --no-merges
 Se pueden mostrar los cambios producidos durante un tiempo
 
 ```shell
-git log --since={2010-04-18}
-git log --before={2010-04-18}
-git log --after={2010-04-18}
+git log --since=2010-04-18
+git log --before=2010-04-18
+git log --after=2010-04-18
 ```
 
 Dado lo complejo de la sintaxis de git log, y las limitaciones gráficas de la consola, se pueden utilizar herramientas gráficas para visualizar el historial de commits.
@@ -917,7 +921,7 @@ Por ejemplo, **gitk**, que se instala con Git, o **gitg**, que es una herramient
 
 En **VSC** se puede utilizar la extensión **Git Graph**
 
-#### git diff
+##### git diff
 
 Permite ver los cambios entre dos commits, dos ramas, dos ficheros, etc.
 
@@ -959,7 +963,7 @@ git diff --no-index <file1> <file2>
 
 En todos los casos, git tiene que calcular las diferencias, por lo que el resultado no es inmediato. Hay que recordar que en git no se almacenan las diferencias, sino los estados de los ficheros en cada commit.
 
-### Alias
+#### Alias
 
 Los alias fueron añadidos en Git 1.4.0
 
@@ -990,6 +994,88 @@ Podemos crear alias más complejos, que incluyan varios comandos y parámetros e
 
 Podemos ver información al respecto en [How to Simplify Your Git Commands with Git Aliases](https://www.freecodecamp.org/news/how-to-simplify-your-git-commands-with-git-aliases/)
 
+#### Markdown
+
+El lenguaje Markdown es un lenguaje de **marcado ligero** que se utiliza para formatear texto de manera sencilla y legible. Fue creado por John Gruber en 2004 con la intención de permitir a los escritores crear documentos con formato utilizando una sintaxis fácil de leer y escribir.
+
+Se pueden crear archivos con extensión `.md` o `.markdown` y son comúnmente utilizados en plataformas como GitHub, GitLab, Bitbucket, entre otras, para documentar proyectos, escribir README files, blogs, etc.
+
+Los encabezados se crean utilizando el símbolo de numeral (`#`). La cantidad de numerales indica el nivel del encabezado.
+
+```markdown
+
+# Nivel 1
+
+## Nivel 2
+
+### Nivel 3
+```
+
+En el texto se puede incluir código en línea como `console.log('Hola Mundo')` y también bloques de código:
+
+```javascript
+console.log('Hola Mundo');
+```
+
+```python 
+print("Hola Mundo")
+```
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+</body>
+</html>
+```
+
+Otros bloque permiten crear citas de texto:
+
+```markdown
+> Esta es una cita de texto.
+> Puede abarcar varias líneas.
+> Incluso puede incluir listas:
+```
+
+También podemos incluir listas ordenadas y desordenadas:
+
+```markdown
+- Elemento 1
+- Elemento 2  
+  - Sub-elemento 2.1
+  - Sub-elemento 2.2
+  
+1. Primer elemento
+2. Segundo elemento
+   1. Sub-elemento 2.1
+   2. Sub-elemento 2.2
+```
+
+En cada párrafo podemos usar **negritas** y _cursivas_.
+
+```markdown
+En este párrafo podemos usar **negritas** y _cursivas_.
+```
+
+Se pueden añadir hipervínculos, tanto internos, hacia títulos, como externos
+
+```markdown
+ [Google](https://www.google.com)
+```
+
+Igualmente se pueden incluir imagenes a partir de una URL o desde un fichero local
+
+```markdown
+ ![Ejemplo](https://via.placeholder.com/150)
+```
+
+En **VSC** esta incluida de serie la previsualización de ficheros markdown, que puede abrirse con el comando `Ctrl+K V` o desde el menú contextual del fichero. Además existen diversas extensiones que permiten comprobar la sintaxis y corregir errores o disponer de funcionalidades adicionales, como **Markdown All in One**, o **Markdown lint** o **Markdown Shortcuts**
 
 ## Dia 2
 
@@ -2830,7 +2916,7 @@ Una release es una versión empaquetada y etiquetada del software que incluye:
 Siguiendo el estándar de **Versionado Semántico** (SemVer), las releases se clasifican en:
 
 - **Major releases** (X.0.0): Cambios incompatibles con versiones anteriores
-- **Minor releases** (1.X.0): Nueva funcionalidad compatible con versiones anteriores  
+- **Minor releases** (1.X.0): Nueva funcionalidad compatible con versiones anteriores
 - **Patch releases** (1.1.X): Correcciones de bugs compatible con versiones anteriores
 - **Pre-releases**: Versiones de prueba (alpha, beta, rc)
 
@@ -2866,14 +2952,17 @@ git show v1.2.0
 ##### Desde la interfaz web
 
 1. **Navegar a la sección Releases**
+
    - Ir al repositorio en GitHub
    - Hacer clic en "Releases" en la barra lateral derecha
 
 2. **Crear nueva release**
+
    - Hacer clic en "Create a new release"
    - Seleccionar un tag existente o crear uno nuevo
 
 3. **Completar la información**
+
    - **Tag version**: Nombre del tag (ej: v1.2.0)
    - **Release title**: Título descriptivo de la release
    - **Description**: Notas de la versión detalladas
@@ -2915,23 +3004,29 @@ Las notas de la versión deben incluir:
 
 ```markdown
 ## What's Changed
+
 ### 🚀 New Features
+
 - Implementación de exportación a PDF
 - Nuevo dashboard de analytics
 
-### 🐛 Bug Fixes  
+### 🐛 Bug Fixes
+
 - Corregido error en el login con espacios
 - Solucionado problema de memoria en procesamiento
 
 ### 🔧 Improvements
+
 - Mejorado rendimiento de búsqueda (50% más rápido)
 - Actualizada documentación de API
 
 ### ⚠️ Breaking Changes
+
 - Cambio en estructura de respuesta de API v2
 - Removido soporte para Node.js < 16
 
 ### 📦 Dependencies
+
 - Actualizado React a v18.2.0
 - Añadido soporte para TypeScript 5.0
 ```
@@ -2941,7 +3036,7 @@ Las notas de la versión deben incluir:
 ```shell
 # Formato de commits convencionales
 feat: añadir funcionalidad de exportación PDF
-fix: corregir error en validación de formularios  
+fix: corregir error en validación de formularios
 docs: actualizar documentación de API
 chore: actualizar dependencias
 break: cambiar estructura de respuesta API
@@ -2994,7 +3089,7 @@ git push origin v1.2.0
 
 ```shell
 # 1. Merge de vuelta a develop
-git checkout develop  
+git checkout develop
 git merge main
 
 # 2. Limpiar rama de release
@@ -3012,19 +3107,19 @@ name: Create Release
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Build project
         run: |
           npm ci
           npm run build
-          
+
       - name: Create Release
         uses: actions/create-release@v1
         env:

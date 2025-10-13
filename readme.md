@@ -6,6 +6,9 @@
 - Fechas: 13, 14 , 15, 16 y 17 de Octubre 2025
 - Horario 9:30 – 14:30 hs
 
+Formador: Alejandro Cerezo
+alce65@hotmail.es
+
 ## Contenidos
 
 - Introducción

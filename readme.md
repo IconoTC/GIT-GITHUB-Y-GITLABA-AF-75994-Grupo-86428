@@ -64,8 +64,6 @@ Desarrollo del curso en la carpeta Oficial -> [repo](https://github.com/IconoTC/
 
 ## Desarrollo del curso
 
-<!-- ## Día 1 (Lunes 13 Octubre 2025)
-
 - Presentación profesor / alumnos
 - Introducción: Qué es un SCV y qué un SCV distribuido
 - IDE / Editor de código: Visual Studio Code (VSC)
@@ -79,8 +77,14 @@ Desarrollo del curso en la carpeta Oficial -> [repo](https://github.com/IconoTC/
   - add/commit/reset y status/log/show
   - Mensajes de commit
 - Anatomía de comandos típicos, referencias VS paths
+
   - HEAD, master, HEAD~1 y otras referencias útiles
   - Referencias por mensaje de commit (:/cadena)
+
+- [Descanso]
+
+<!-- ## Día 1 (Lunes 13 Octubre 2025)
+
 - Integración con otras herramientas y entornos
   - Clientes gráficos
   - Entornos de desarrollo
@@ -89,6 +93,10 @@ Desarrollo del curso en la carpeta Oficial -> [repo](https://github.com/IconoTC/
   - Qué son
   - Sintaxis básica
   - Vista previa en VSC
+- Comprobar el repositorio.
+  - git log
+  - git show
+  - git diff
 - Aliases
   - Qué son
   - Cómo crearlos: `git config --global alias.co checkout` -->
@@ -104,14 +112,12 @@ Desarrollo del curso en la carpeta Oficial -> [repo](https://github.com/IconoTC/
   - Referencias: heads, ramas (tags y remotes)
   - Taller: creación de un repositorio git "a mano"
 - Herramientas para preparar un buen commit en cualquier situación
-  - Comprobar el repositorio. Git log
   - Operaciones en la Staging Area (Index)
     - Añadir ficheros
     - Eliminar de la Staging Area (Index)
   - Eliminar ficheros
     - Problemas con .gitignore
   - Cambiar nombre de ficheros
-  - git diff
   - git blame
   - Recapitulando: Git básico
 - Reescribiendo la historia

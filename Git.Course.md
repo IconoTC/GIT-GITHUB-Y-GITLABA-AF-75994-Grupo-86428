@@ -40,6 +40,10 @@
         - [VSCode](#vscode)
       - [Repositorios remotos (hosting de repositorios)](#repositorios-remotos-hosting-de-repositorios)
       - [Comandos de conexión y uso del repositorio remoto (resumen)](#comandos-de-conexión-y-uso-del-repositorio-remoto-resumen)
+    - [Comprobar el repositorio](#comprobar-el-repositorio)
+      - [git log](#git-log)
+      - [git diff](#git-diff)
+    - [Alias](#alias)
   - [Dia 2](#dia-2)
     - [Git internals: Plumbing commands](#git-internals-plumbing-commands)
       - [La carpeta .git](#la-carpeta-git)
@@ -52,15 +56,12 @@
       - [Creando un commit con comandos plumbing](#creando-un-commit-con-comandos-plumbing)
       - [En resumen del Taller](#en-resumen-del-taller)
     - [HERRAMIENTAS PARA PREPARAR UN BUEN COMMIT EN CUALQUIER SITUACIÓN](#herramientas-para-preparar-un-buen-commit-en-cualquier-situación)
-      - [Comprobar el repositorio. Git log](#comprobar-el-repositorio-git-log)
-      - [Alias](#alias)
       - [Operaciones en la Staging Area (Index)](#operaciones-en-la-staging-area-index)
         - [Añadir ficheros](#añadir-ficheros)
         - [Eliminar de la Staging Area (Index)](#eliminar-de-la-staging-area-index)
       - [Eliminar ficheros](#eliminar-ficheros)
         - [Problemas con .gitignore](#problemas-con-gitignore)
       - [Cambiar nombre de ficheros](#cambiar-nombre-de-ficheros)
-      - [git diff](#git-diff)
       - [git blame](#git-blame)
     - [Recapitulando: Git básico](#recapitulando-git-básico)
     - [REESCRIBIENDO LA HISTORIA](#reescribiendo-la-historia)
@@ -838,6 +839,158 @@ Cualquiera que sea la forma en que se han creado, una vez que existe un remote, 
 - `git push`
 - `git pull`
 
+### Comprobar el repositorio
+
+#### git log
+
+```shell
+git log
+git log --graph --decorate --oneline
+```
+
+Log es uno de los comandos de git con más opciones. Algunas de las más útiles son
+
+- `--graph`: Muestra el historial de commits en forma de grafo
+- `--decorate`: Muestra las referencias de los commits (HEAD, master, ...)
+- `--oneline`: Muestra los commits en una sola línea
+- `--all`: Muestra todos los commits, no solo los de la rama actual
+- `--author`: Filtra los commits por autor
+- `--since`: Filtra los commits por fecha
+- `--until`: Filtra los commits por fecha
+- `--grep`: Filtra los commits por mensaje
+- `--no-merges`: Muestra solo los commits que no son merges
+- `--stat`: Muestra estadísticas de los cambios en los commits
+- `--patch`: Muestra los cambios en los commits
+
+Se suelen combinar varias opciones para obtener la información deseada
+
+- `--graph --oneline --decorate --all`: Muestra el historial de commits en forma de grafo, en una sola línea, con las referencias y todos los commits
+
+Si estas combinaciones se utilizan con frecuencia, se pueden añadir a la configuración de git como alias
+
+```shell
+git config --global alias.lol "log --graph --decorate --oneline"
+git lol
+```
+
+Se puede indicar a partir de que commit debe de empezar la serie
+git log <commit-name>
+
+```shell
+git log master~2
+```
+
+Se puede especificar un rango (desde .. hasta)
+git log <commit-name>..<commit-name>
+
+```shell
+git log master~12..master~10
+```
+
+Se pueden mostrar los commits que afectan a un determinado path (carpeta, fichero…)
+git log -- <path>
+
+```shell
+git log -- README3.txt
+```
+
+Se pueden mostrar los commits que coincidan con una expresión regular
+git log --grep=‘reg-exp’
+
+Se pueden excluir del listado los commits resultantes de un merge
+
+```shell
+git log --no-merges
+```
+
+Se pueden mostrar los cambios producidos durante un tiempo
+
+```shell
+git log --since={2010-04-18}
+git log --before={2010-04-18}
+git log --after={2010-04-18}
+```
+
+Dado lo complejo de la sintaxis de git log, y las limitaciones gráficas de la consola, se pueden utilizar herramientas gráficas para visualizar el historial de commits.
+
+Por ejemplo, **gitk**, que se instala con Git, o **gitg**, que es una herramienta gráfica de Git para Gnome.
+
+En **VSC** se puede utilizar la extensión **Git Graph**
+
+#### git diff
+
+Permite ver los cambios entre dos commits, dos ramas, dos ficheros, etc.
+
+Por defecto, compara el directorio de trabajo con el index (staging area)
+
+```shell
+git diff
+```
+
+Para comparar el directorio de trabajo con el último commit
+
+```shell
+git diff HEAD
+```
+
+Para comparar el directorio de trabajo con un commit concreto
+
+```shell
+git diff <commit>
+```
+
+Para comparar dos commits
+
+```shell
+git diff <commit1> <commit2>
+```
+
+Para comparar dos ramas
+
+```shell
+git diff <branch1> <branch2>
+```
+
+Para comparar dos ficheros
+
+```shell
+git diff --no-index <file1> <file2>
+```
+
+En todos los casos, git tiene que calcular las diferencias, por lo que el resultado no es inmediato. Hay que recordar que en git no se almacenan las diferencias, sino los estados de los ficheros en cada commit.
+
+### Alias
+
+Los alias fueron añadidos en Git 1.4.0
+
+Evitan tener que teclear repetidas veces el mismo comando completo
+
+Se pueden configurar en cualquiera de los ámbitos de configuración mencionados (system, global, local) tanto por línea de comandos como directamente en el fichero de configuración correspondiente
+
+```shell
+git config --global alias.lol "log --graph --decorate --oneline"
+git lol
+```
+
+Un ejemplo de alias más complejo
+
+```shell
+git config --global alias.hist git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short
+git hist
+```
+
+Los alias de git admiten los mismos parámetros y modificadores que los comandos originales
+
+```shell
+git config --global alias.ch git checkout
+git ch -b feature/branch
+```
+
+Podemos crear alias más complejos, que incluyan varios comandos y parámetros en diversos puntos.
+
+Podemos ver información al respecto en [How to Simplify Your Git Commands with Git Aliases](https://www.freecodecamp.org/news/how-to-simplify-your-git-commands-with-git-aliases/)
+
+
 ## Dia 2
 
 ### Git internals: Plumbing commands
@@ -1426,113 +1579,6 @@ Hemos creado un objeto blob, un objeto tree y un objeto commit, y hemos actualiz
 
 ### HERRAMIENTAS PARA PREPARAR UN BUEN COMMIT EN CUALQUIER SITUACIÓN
 
-#### Comprobar el repositorio. Git log
-
-```shell
-git log
-git log --graph --decorate --oneline
-```
-
-Log es uno de los comandos de git con más opciones. Algunas de las más útiles son
-
-- `--graph`: Muestra el historial de commits en forma de grafo
-- `--decorate`: Muestra las referencias de los commits (HEAD, master, ...)
-- `--oneline`: Muestra los commits en una sola línea
-- `--all`: Muestra todos los commits, no solo los de la rama actual
-- `--author`: Filtra los commits por autor
-- `--since`: Filtra los commits por fecha
-- `--until`: Filtra los commits por fecha
-- `--grep`: Filtra los commits por mensaje
-- `--no-merges`: Muestra solo los commits que no son merges
-- `--stat`: Muestra estadísticas de los cambios en los commits
-- `--patch`: Muestra los cambios en los commits
-
-Se suelen combinar varias opciones para obtener la información deseada
-
-- `--graph --oneline --decorate --all`: Muestra el historial de commits en forma de grafo, en una sola línea, con las referencias y todos los commits
-
-Si estas combinaciones se utilizan con frecuencia, se pueden añadir a la configuración de git como alias
-
-```shell
-git config --global alias.lol "log --graph --decorate --oneline"
-git lol
-```
-
-Se puede indicar a partir de que commit debe de empezar la serie
-git log <commit-name>
-
-```shell
-git log master~2
-```
-
-Se puede especificar un rango (desde .. hasta)
-git log <commit-name>..<commit-name>
-
-```shell
-git log master~12..master~10
-```
-
-Se pueden mostrar los commits que afectan a un determinado path (carpeta, fichero…)
-git log -- <path>
-
-```shell
-git log -- README3.txt
-```
-
-Se pueden mostrar los commits que coincidan con una expresión regular
-git log --grep=‘reg-exp’
-
-Se pueden excluir del listado los commits resultantes de un merge
-
-```shell
-git log --no-merges
-```
-
-Se pueden mostrar los cambios producidos durante un tiempo
-
-```shell
-git log --since={2010-04-18}
-git log --before={2010-04-18}
-git log --after={2010-04-18}
-```
-
-Dado lo complejo de la sintaxis de git log, y las limitaciones gráficas de la consola, se pueden utilizar herramientas gráficas para visualizar el historial de commits.
-
-Por ejemplo, **gitk**, que se instala con Git, o **gitg**, que es una herramienta gráfica de Git para Gnome.
-
-En **VSC** se puede utilizar la extensión **Git Graph**
-
-#### Alias
-
-Los alias fueron añadidos en Git 1.4.0
-
-Evitan tener que teclear repetidas veces el mismo comando completo
-
-Se pueden configurar en cualquiera de los ámbitos de configuración mencionados (system, global, local) tanto por línea de comandos como directamente en el fichero de configuración correspondiente
-
-```shell
-git config --global alias.lol "log --graph --decorate --oneline"
-git lol
-```
-
-Un ejemplo de alias más complejo
-
-```shell
-git config --global alias.hist git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short
-git hist
-```
-
-Los alias de git admiten los mismos parámetros y modificadores que los comandos originales
-
-```shell
-git config --global alias.ch git checkout
-git ch -b feature/branch
-```
-
-Podemos crear alias más complejos, que incluyan varios comandos y parámetros en diversos puntos.
-
-Podemos ver información al respecto en [How to Simplify Your Git Commands with Git Aliases](https://www.freecodecamp.org/news/how-to-simplify-your-git-commands-with-git-aliases/)
-
 #### Operaciones en la Staging Area (Index)
 
 ##### Añadir ficheros
@@ -1687,48 +1733,6 @@ En una sola fase
 git mv samples\sample_bad2.txt samples\sample2.txt
 git status
 ```
-
-#### git diff
-
-Permite ver los cambios entre dos commits, dos ramas, dos ficheros, etc.
-
-Por defecto, compara el directorio de trabajo con el index (staging area)
-
-```shell
-git diff
-```
-
-Para comparar el directorio de trabajo con el último commit
-
-```shell
-git diff HEAD
-```
-
-Para comparar el directorio de trabajo con un commit concreto
-
-```shell
-git diff <commit>
-```
-
-Para comparar dos commits
-
-```shell
-git diff <commit1> <commit2>
-```
-
-Para comparar dos ramas
-
-```shell
-git diff <branch1> <branch2>
-```
-
-Para comparar dos ficheros
-
-```shell
-git diff --no-index <file1> <file2>
-```
-
-En todos los casos, git tiene que calcular las diferencias, por lo que el resultado no es inmediato. Hay que recordar que en git no se almacenan las diferencias, sino los estados de los ficheros en cada commit.
 
 #### git blame
 

@@ -69,18 +69,18 @@
     - [REESCRIBIENDO LA HISTORIA](#reescribiendo-la-historia)
       - [Advertencia](#advertencia)
       - [git command --amend](#git-command---amend)
+        - [Ref logs](#ref-logs)
       - [git checkout](#git-checkout)
         - [Nuevos comandos git switch y git restore](#nuevos-comandos-git-switch-y-git-restore)
         - [git checkout a nivel de archivo](#git-checkout-a-nivel-de-archivo)
-  - [Día 3](#día-3)
-    - [REESCRIBIENDO LA HISTORIA (2)](#reescribiendo-la-historia-2)
       - [git reset](#git-reset)
         - [git reset a nivel de archivo](#git-reset-a-nivel-de-archivo)
+  - [Día 3](#día-3)
+    - [REESCRIBIENDO LA HISTORIA (2)](#reescribiendo-la-historia-2)
       - [rebase interactivo](#rebase-interactivo)
         - [edit: modificando un commit](#edit-modificando-un-commit)
         - [squash y fixup: fusionando commits](#squash-y-fixup-fusionando-commits)
         - [drop: eliminando un commit](#drop-eliminando-un-commit)
-      - [Ref logs](#ref-logs)
       - [Otros comandos](#otros-comandos)
         - [Git stash](#git-stash)
         - [Git clean](#git-clean)
@@ -1715,7 +1715,7 @@ git restore --staged <file>
 
 git restore es un **nuevo comando** que reproduce una parte de la funcionalidad de git checkout: recover an earlier commit.
 
-Una variación de git reset permite eliminar un archivo de la staging area y enviando al directorio de trabajo su estado en el último commit
+Una variación de git reset permite eliminar un archivo de la staging area y enviando a esta su estado en el último commit, pero sin modificar el directorio de trabajo.
 
 ```shell
 git reset HEAD <file>
@@ -1887,6 +1887,24 @@ En realidad, `git commit --amend` crea un nuevo commit con los cambios del commi
 
 El uso de amend debe limitarse a "cambios en el commit anterior", como corregir errores en el mensaje del commit, modificar los ficheros o añadir puntualmente otros nuevos, claramente vinculados a los anteriores. Para cambios de mayor envergadura es mejor práctica crear un nuevo commit.
 
+##### Ref logs
+
+El reflog es un registro de los cambios en los punteros de referencia (HEAD, ramas, etc.) que se han producido en el repositorio. Se puede consultar con el comando `git reflog`
+
+```shell
+git reflog
+```
+
+También se puede obtener la lista de todos los logs en los que se guarda la información de los cambios en los punteros de referencia, dentro de la carpeta logs del repositorio.
+
+```shell
+git reflog list
+```
+
+Esta información es muy util para conocer los commits "eliminados", es decir aquellos a los que ya no se puede acceder directamente desde las ramas, pero que siguen existiendo en el repositorio.
+
+Utilidades gráficas como `gitk` o la extensión `Git Graph` de Visual Studio Code permiten visualizar la información de los reflogs de una manera más intuitiva para el usuario.
+
 #### git checkout
 
 El comando `git checkout` mueve el puntero de referencia HEAD a un commit específico.
@@ -1966,10 +1984,6 @@ git restore --source=HEAD~1 --staged README.md
 
 En este caso, el fichero README.md en el área de preparación vuelve a tener el contenido que tenía en el commit anterior al HEAD.
 
-## Día 3
-
-### REESCRIBIENDO LA HISTORIA (2)
-
 #### git reset
 
 El comando `git reset` mueve el puntero de referencia de una rama (acompañado por el HEAD), a un commit específico, normalmente un commit anterior de la misma rama. Estaremos 'deshaciendo' los commits posteriores que quedarán huérfanos y se eliminarán la próxima vez que Git haga limpieza.
@@ -1987,6 +2001,10 @@ Sus efectos sobre la working y staging areas dependen de la opción seleccionada
 git reset HEAD [file]
 
 En este caso no mueve el HEAD del repositorio, lo que hace es llevar al directorio de staged el fichero al que hemos hecho reset con el contenido que tenía en el último commit. Como se una el parámetro por defecto, mixed, en el directorio de trabajo estará la versión última del contenido pendiente de commit y en staged la versión del contenido a la que hemos vuelto.
+
+## Día 3
+
+### REESCRIBIENDO LA HISTORIA (2)
 
 #### rebase interactivo
 
@@ -2173,24 +2191,6 @@ pick 7c4668d Mensaje del último commit
 El resultado es que el commit HEAD~1 desaparece de la lista de commits a reescribir. Como consecuencia, la información de ese commit se pierde completamente.
 
 Un posible caso sería eliminar información sensible que por error se ha incluido en un commit.
-
-#### Ref logs
-
-El reflog es un registro de los cambios en los punteros de referencia (HEAD, ramas, etc.) que se han producido en el repositorio. Se puede consultar con el comando `git reflog`
-
-```shell
-git reflog
-```
-
-También se puede obtener la lista de todos los logs en los que se guarda la información de los cambios en los punteros de referencia, dentro de la carpeta logs del repositorio.
-
-```shell
-git reflog list
-```
-
-Esta información es muy util para conocer los commits "eliminados", es decir aquellos a los que ya no se puede acceder directamente desde las ramas, pero que siguen existiendo en el repositorio.
-
-Utilidades gráficas como `gitk` o la extensión `Git Graph` de Visual Studio Code permiten visualizar la información de los reflogs de una manera más intuitiva para el usuario.
 
 #### Otros comandos
 

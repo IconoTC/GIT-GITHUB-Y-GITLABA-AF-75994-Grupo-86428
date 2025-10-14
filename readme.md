@@ -17,10 +17,10 @@ Formador: Alejandro Cerezo
     - Quick Start
     - Aprendiendo a referenciar revisiones y paths
     - Herramientas para preparar un buen commit en cualquier situación
-    - Reescribiendo la historia
   - GUI’s (Integración con otras herramientas y entornos)
     - Github
     - GitLab
+  - Reescribiendo la historia
 - Ramas (Trabajando en paralelo)
   - Ramificación
   - Fusión de Ramas
@@ -69,8 +69,8 @@ Desarrollo del curso en la carpeta Oficial -> [repo](https://github.com/IconoTC/
 - Presentación profesor / alumnos
 - Introducción: Qué es un SCV y qué un SCV distribuido
 - IDE / Editor de código: Visual Studio Code (VSC)
-- Terminales
 - Instalación de Git
+- Terminales
   Configuración inicial
 - Primeros pasos con Git
   - Primer repo (init), primer commit
@@ -89,6 +89,8 @@ Desarrollo del curso en la carpeta Oficial -> [repo](https://github.com/IconoTC/
   - Clientes gráficos
   - Entornos de desarrollo
   - Repositorios remotos: GitHub, GitLab, Bitbucket
+    - remotes -> push / pull
+    - Clonar un repositorio: clone
 - Comprobar el repositorio.
   - git log
   - git show
@@ -100,9 +102,9 @@ Desarrollo del curso en la carpeta Oficial -> [repo](https://github.com/IconoTC/
 - Ficheros Markdown
   - Qué son
   - Sintaxis básica
-  - Vista previa en VSC
+  - Vista previa en VSC / GitHub / GitLab
 
-<!-- ### Día 2 (Martes 14 Octubre 2025)
+### Día 2 (Martes 14 Octubre 2025)
 
 - Git internals
   - Estructura de un repositorio git: .git
@@ -113,26 +115,29 @@ Desarrollo del curso en la carpeta Oficial -> [repo](https://github.com/IconoTC/
   - Referencias: heads, ramas (tags y remotes)
   - Taller: creación de un repositorio git "a mano"
 - Herramientas para preparar un buen commit en cualquier situación
-  - Operaciones en la Staging Area (Index)
-    - Añadir ficheros
-    - Eliminar de la Staging Area (Index)
-  - Eliminar ficheros
-    - Problemas con .gitignore
-  - Cambiar nombre de ficheros
-  - git blame
-  - Recapitulando: Git básico
+- Operaciones en la Staging Area (Index)
+  - Añadir ficheros
+  - Eliminar de la Staging Area (Index)
+- Eliminar ficheros: git rm
+  - Problemas con .gitignore
+- Cambiar nombre de ficheros: git mv
+- git blame
+- Recapitulando: Git básico
+
+- [Descanso]
+
 - Reescribiendo la historia
   - Advertencia
   - git command --amend
   - git checkout
-  - git reset -->
+  - git reset
+  - Evolución de git checkout: Nuevos comandos git switch y git restore
+  - git checkout a nivel de archivo (restore)
+  - git reset a nivel de archivo
 
 <!-- ### Día 3 (Miércoles 15 Octubre 2025)
 
 - Reescribiendo la historia (2)
-  - Evolución de git checkout: Nuevos comandos git switch y git restore
-  - git checkout a nivel de archivo (restore)
-  - git reset a nivel de archivo
   - rebase interactivo
     - edit: modificando un commit
     - squash y fixup: fusionando commits

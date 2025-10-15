@@ -109,45 +109,47 @@ Desarrollo del curso en la carpeta Oficial -> [repo](https://github.com/IconoTC/
 - Git internals
   - Estructura de un repositorio git: .git
   - Objetos git: blobs, trees, commits (y tags)
-  - Creación y lectura de objetos
-  - Creación del árbol de objetos en un primer commit
-  - Modificación del árbol de objetos en commits sucesivos
+    - Creación y lectura de objetos
+    - Creación del árbol de objetos en un primer commit
+    - Modificación del árbol de objetos en commits sucesivos
   - Referencias: heads, ramas (tags y remotes)
   - Taller: creación de un repositorio git "a mano"
 - Herramientas para preparar un buen commit en cualquier situación
-- Operaciones en la Staging Area (Index)
-  - Añadir ficheros
-  - Eliminar de la Staging Area (Index)
-- Eliminar ficheros: git rm
-  - Problemas con .gitignore
-- Cambiar nombre de ficheros: git mv
-- git blame
-- Recapitulando: Git básico
+
+  - Operaciones en la Staging Area (Index)
+    - Añadir ficheros
+    - Eliminar de la Staging Area (Index)
+  - Eliminar ficheros: git rm
+    - Problemas con .gitignore
+  - Cambiar nombre de ficheros: git mv
+  - git blame
+  - Recapitulando: Git básico
 
 - [Descanso]
 
 - Reescribiendo la historia
   - Advertencia
   - git command --amend
+    - Ref logs
   - git checkout
   - git reset
   - Evolución de git checkout: Nuevos comandos git switch y git restore
   - git checkout a nivel de archivo (restore)
   - git reset a nivel de archivo
 
-<!-- ### Día 3 (Miércoles 15 Octubre 2025)
+### Día 3 (Miércoles 15 Octubre 2025)
 
 - Reescribiendo la historia (2)
   - rebase interactivo
     - edit: modificando un commit
     - squash y fixup: fusionando commits
     - drop: eliminando un commit
-  - Ref logs
-  - Otros comandos
-    - git stash
-    - git clean
-    - git revert
-    - git bisect
+- Otros comandos
+
+  - git clean
+  - git revert
+  - git bisect
+
 - Trabajando en paralelo
 
   - Ramas
@@ -161,22 +163,35 @@ Desarrollo del curso en la carpeta Oficial -> [repo](https://github.com/IconoTC/
       - fast-forward
       - three-way merge
     - git rebase
-    - git cherry-pick
-    - Resolución de conflictos
+
+- [Descanso]
+
+- Trabajando en paralelo (2)
+
+  - git stash
+  - Resolución de conflictos
+  - git cherry-pick
+
+- Etiquetas (tags)
+  - Tags anotadas y tags ligeros
+  - Crear, listar, eliminar
+- Worktrees
+- Patches
+  - Creación
+  - Aplicación
+
+<!-- ### Día 4 (Jueves 16 Octubre 2025)
 
 - Repositorios remotos
   - Repositorios "bare"
   - Clonar repositorios: git clone
   - git remote
   - git push
+    - push tags
   - git pull
     - git fetch
     - git merge / git rebase
-    - Conflictos -->
-
-<!-- ### Día 4 (Jueves 16 Octubre 2025)
-
-- Repositorios remotos (continuación)
+    - Conflictos
 
   - Ramas remotas
     - Seguimiento de ramas remotas (tracking branches)
@@ -191,9 +206,6 @@ Desarrollo del curso en la carpeta Oficial -> [repo](https://github.com/IconoTC/
       - Actualizar la rama con la rama main antes de hacer el merge
       - Resolución de conflictos en local
       - Eliminar la rama una vez hecho el merge
-  - Etiquetas (tags)
-    - Tags anotadas y tags ligeros
-    - Crear, listar, eliminar
 
 - Flujos de trabajo (workflows)
 

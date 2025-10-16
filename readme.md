@@ -217,10 +217,9 @@ Desarrollo del curso en la carpeta Oficial -> [repo](https://github.com/IconoTC/
   - GitLab Flow
   - GitHub Flow
     - Ship-Show-Ask
-  
+
 - Buenas prácticas
 
-<!--
 - GitHub
   - Hosting de Repositorios
     - repositorios públicos y privados; ramas y remotos: push y pull (v.s.)
@@ -233,24 +232,26 @@ Desarrollo del curso en la carpeta Oficial -> [repo](https://github.com/IconoTC/
       - issues y proyectos; milestones
     - Wikis
     - Gists
-  -->
+    - GitHub Pages
 
 <!-- ### Día 5 (Jueves 17 Octubre 2025)
 
 - GitHub (continuación)
-  - Integración continua / Entrega continua (CI/CD)
-    - GitHub Pages
-    - GitHub Actions
-      - Introducción
-      - Workflow. Partes y sintaxis
-      - Configuración y ejecución de un workflow
-      - Secretos
-    - tags y releases
-- GitLab
-  - Similitudes y diferencias con GitHub
-  - Merge Request
-  - CI/CD en GitLab
-    - Introducción a CI/CD
-    - Configuración de un pipeline: stages y jobs
-    - Artefactos
-    - Variables -->
+  - GitHub CLI
+  - GitHub Pages (Práctica)
+  - Releases
+- Integración continua / Entrega continua (CI/CD)
+  - GitHub Actions
+    - Introducción
+    - Workflow. Partes y sintaxis
+    - Configuración y ejecución de un workflow
+    - Secretos
+  - GitLab
+    - Similitudes y diferencias con GitHub
+    - Merge Request
+    - CI/CD en GitLab
+      - Introducción a CI/CD
+      - Configuración de un pipeline: stages y jobs
+      - Artefactos
+      - Variables
+-->

@@ -5,7 +5,6 @@
 - [GIT (20h)](#git-20h)
   - [Índice](#índice)
   - [Formador](#formador)
-  - [Contenidos](#contenidos)
   - [Día 1](#día-1)
     - [INTRODUCCIÓN](#introducción)
       - [Qué es un SCV](#qué-es-un-scv)
@@ -128,38 +127,37 @@
         - [GitLab Flow (Environment Branching)](#gitlab-flow-environment-branching)
         - [GitHub Flow, Feature Branching, Trunk Based Development](#github-flow-feature-branching-trunk-based-development)
         - [Ship-show-ask](#ship-show-ask)
-    - [CONFIGURACIÓN DE GIT. Hooks](#configuración-de-git-hooks)
-      - [Configuración. gitconfig](#configuración-gitconfig)
-      - [Hooks](#hooks)
-        - [Husky](#husky)
+    - [BUENAS PRÁCTICAS](#buenas-prácticas)
+    - [GitHub](#github)
+      - [Introducción. ¿Qué es GitHub?](#introducción-qué-es-github)
+      - [Archivos esenciales del repositorio](#archivos-esenciales-del-repositorio)
+      - [GitHub CLI](#github-cli)
+        - [Crear un repositorio](#crear-un-repositorio)
+        - [Otros comandos](#otros-comandos)
+      - [GITHUB PAGES](#github-pages)
+        - [Características principales de GitHub Pages](#características-principales-de-github-pages)
+        - [Cómo crear un sitio web con GitHub Pages](#cómo-crear-un-sitio-web-con-github-pages)
+      - [Sitios Web y GitHub Pages](#sitios-web-y-github-pages)
+  - [Día 5](#día-5)
+    - [GitHub (Continuación)](#github-continuación)
+      - [GITHUB PAGES. Practicas](#github-pages-practicas)
+        - [Crear un sitio web con Astro y publicarlo en GitHub Pages](#crear-un-sitio-web-con-astro-y-publicarlo-en-github-pages)
+      - [GitHub CLI (continuación)](#github-cli-continuación)
+      - [Releases (Liberaciones)](#releases-liberaciones)
+        - [Tipos de releases](#tipos-de-releases)
+        - [Relación entre tags y releases](#relación-entre-tags-y-releases)
+        - [Buenas prácticas y opciones para releases](#buenas-prácticas-y-opciones-para-releases)
+        - [Flujo de trabajo para releases en Git](#flujo-de-trabajo-para-releases-en-git)
+        - [Gestión de releases en las plataformas GitHub/GitLab](#gestión-de-releases-en-las-plataformas-githubgitlab)
+          - [Crear una release en GitHub](#crear-una-release-en-github)
+          - [Crear una release con el GitLab CLI](#crear-una-release-con-el-gitlab-cli)
+    - [CI/CD](#cicd)
+  - [Apéndices](#apéndices)
     - [SUB-PROYECTOS](#sub-proyectos)
       - [Submodules](#submodules)
         - [Creación de un submodule](#creación-de-un-submodule)
           - [Clonado de un repositorio con submodules: inicialización](#clonado-de-un-repositorio-con-submodules-inicialización)
         - [Actualizaciones de un submodule](#actualizaciones-de-un-submodule)
-    - [BUENAS PRÁCTICAS](#buenas-prácticas)
-    - [Apéndice. UTILIDADES. INTEGRACIÓN CON OTRAS HERRAMIENTAS Y ENTORNOS](#apéndice-utilidades-integración-con-otras-herramientas-y-entornos)
-    - [Liberaciones (releases)](#liberaciones-releases)
-      - [¿Qué son las releases?](#qué-son-las-releases)
-      - [Tipos de releases](#tipos-de-releases)
-      - [Relación entre tags y releases](#relación-entre-tags-y-releases)
-      - [Crear una release en GitHub](#crear-una-release-en-github)
-        - [Desde la interfaz web](#desde-la-interfaz-web)
-        - [Desde línea de comandos con GitHub CLI](#desde-línea-de-comandos-con-github-cli)
-      - [Buenas prácticas para releases](#buenas-prácticas-para-releases)
-        - [Versionado semántico](#versionado-semántico)
-        - [Notas de la versión (Release Notes)](#notas-de-la-versión-release-notes)
-        - [Automatización con Conventional Commits](#automatización-con-conventional-commits)
-      - [Flujo de trabajo para releases](#flujo-de-trabajo-para-releases)
-        - [1. Preparación de la release](#1-preparación-de-la-release)
-        - [2. Creación del tag y release](#2-creación-del-tag-y-release)
-        - [3. Post-release](#3-post-release)
-      - [Automatización con GitHub Actions](#automatización-con-github-actions)
-      - [Gestión de releases en diferentes plataformas](#gestión-de-releases-en-diferentes-plataformas)
-        - [GitHub](#github)
-        - [GitLab](#gitlab)
-        - [Otras herramientas](#otras-herramientas)
-      - [Comandos útiles para gestión de releases](#comandos-útiles-para-gestión-de-releases)
 
 ## Formador
 
@@ -173,136 +171,6 @@ Formador / Desarrollador Web FullStack
 
 - JavaScript - Typescript - Angular - React
 - NodeJS - Express - MongoDB - MySQL
-
-## Contenidos
-
-- Introducción
-- Quick start
-- Aprendiendo a referenciar revisiones y paths
-- Git internals
-- Herramientas para preparar un buen commit en cualquier situación
-- Reescribiendo la historia
-- Trabajando en paralelo
-- Utilidades
-- Configuración de git. hooks
-- Sub-proyectos
-- Integración con otras herramientas y entornos
-- Buenas prácticas
-
-1. INTRODUCCIÓN
-
-   - Qué es un SCV y qué un SCV distribuido
-   - Historia de GIT: C, kernel Linux, contexto (SVN, Mercurial, ...)
-   - Anatomía de un SCV distribuido | diferencias/parecidos con centralizados
-   - Instalación en Windows
-   - CheatSheets y Libros recomendados
-
-2. QUICK START
-
-   - Primer repo (init), primer commit
-   - Configuración inicial: email y name
-   - add/commit y status/log/show
-   - Mensajes de commit
-   - Anatomía de un repositorio git: staging area, index and cache
-
-3. APRENDIENDO A REFERENCIAR REVISIONES Y PATHS
-
-   - Anatomía de comandos típicos, referencias VS paths
-   - HEAD, master, HEAD~1 y otras referencias útiles (tags)
-   - Números de commit: SHA1, sub-cadena de SHA1
-   - Nombres de tags, de heads y de branches
-   - Referencias por mensaje de commit (:/cadena)
-
-   ADD. Git internals
-
-   - Plumbing commands
-   - Objetos: blobs, trees, commits, tags
-
-4. HERRAMIENTAS PARA PREPARAR UN BUEN COMMIT EN CUALQUIER SITUACIÓN
-
-   - git add p
-   - git rm, git mv
-   - git diff
-   - git blame | git log string
-   - .gitignore
-
-5. REESCRIBIENDO LA HISTORIA
-
-   - amend
-   - checkout
-   - reset
-   - stash
-   - git clean n | git clean f
-   - revert
-   - rebase
-   - git bisect
-
-6. TRABAJANDO EN PARALELO
-
-   - branches
-     - Crear, borrar, intercambiar
-     - Crear desde ref (git checkout b mybranch master~1)
-   - tags
-     - Crear, usar
-   - patches
-     - Crear, aplicar
-   - remotes:
-     - remote v
-     - push/pull
-     - clones
-     - repos bare
-     - push branch, push tag
-   - Resolución de conflictos
-   - merge VS rebase VS cherrypick
-   - Pull Request
-     - Creación
-     - Uso
-     - Merging
-     - Cierre
-
-7. UTILIDADES
-
-   - GitK, GitG y git gui | git log graph | formato git log
-   - IntelliJ
-
-8. CONFIGURACIÓN DE GIT. Hooks
-
-   - .alias
-   - gitconfig
-     - Editor
-     - Coloreado comandos
-     - Formato salida comandos
-     - Otras opciones
-   - Hooks
-     - Cómo crear
-     - hooks de lado cliente: commits, emails, rebase, ...
-     - hooks de lado servidor: prereceive, postreceive, update
-
-9. SUB-PROYECTOS
-
-   - Crear submodules
-   - workflow de commits
-   - git submodule status recursive
-   - git submodule foreach ...
-
-10. INTEGRACIÓN CON OTRAS HERRAMIENTAS Y ENTORNOS
-
-    - SourceTree
-    - Github
-    - GitLab
-    - Bitbucket
-
-11. BUENAS PRÁCTICAS
-
-    - Commits atómicos
-    - Commits frecuentes
-    - No commits de trabajo a medias
-    - Test antes de commit
-    - Buenos mensajes de commit
-    - Usar branches, feature-branching
-    - Workflows
-      - Presentar las opciones más usadas
-      - Fijar un workflow común
 
 ## Día 1
 
@@ -3055,56 +2923,555 @@ Referencias
 - Usar branches, feature-branching
 - Fijar un workflow común
 
-### CONFIGURACIÓN DE GIT. Hooks
+### GitHub
 
-#### Configuración. gitconfig
+- **Website**: [https://github.com](https://github.com/about)
+- **Documentación**: [https://docs.github.com/en](https://docs.github.com/es)
 
-- .alias
-- Editor
-- Coloreado comandos
-- Formato salida comandos
-- Otras opciones
+#### Introducción. ¿Qué es GitHub?
 
-#### Hooks
+GitHub es un servicio en línea que permite a los desarrolladores colaborar en el código. A menudo se le conoce como un sitio web de programación social. Aquí tienes algunos puntos clave:
 
-Los hooks son scripts que se ejecutan automáticamente en determinados momentos del ciclo de vida de un repositorio Git. Permiten automatizar tareas, como la validación de código, la ejecución de tests, el envío de notificaciones, etc.
+- **Hosting de Control de versiones** (Cloud Repository): GitHub se integra con Git, lo que le permite configurar repositorios remotos, enviar cambios y obtener actualizaciones.
+- **Colaboración** (Collaborative Development): GitHub proporciona herramientas para rastrear cambios, asignar problemas e implementar código, lo que facilita que los equipos trabajen juntos.
+- **Gestión de proyectos** (Project Management): incluye herramientas de gestión de proyectos como tableros Kanban para organizar proyectos de desarrollo.
 
-Podemos encontrar información sobre su funcionamiento
+Esto hace de GitHub una plataforma poderosa para administrar y colaborar en proyectos de desarrollo.
 
-- en la documentación oficial de Git: https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks
-- el el libro Pro Git: https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks
+- Hosting de Control de versiones[^1]
 
-Al inicializar un nuevo repositorio con `git init`, Git llena el directorio de hooks `.git/hooks` con varios scripts de ejemplo, muchos de los cuales son útiles por sí mismos; además, documentan los valores de entrada de cada script. Todos los ejemplos están escritos como `scripts de shell`, con algo de `Perl`, pero cualquier script ejecutable con un nombre correcto funcionará correctamente; (`Ruby`, `Python`...). Si quieres usar los scripts de hook incluidos, tendrás que renombrarlos; todos sus nombres de archivo terminan en .sample.
+  - Setup de repositorios remotos / Clonar (Clone)
+  - Publicando (Push): Enviar cambios
+  - Obteniendo (Pull): Obtener actualizaciones = fetch + merge
+    - Ramas remotas
+  - Tags
+    - Enviar/recibir Tags al/del remoto
+  - Forks
 
-Los hooks que se encuentran inicialmente en el directorio `.git/hooks` del repositorio son los siguientes:
+- Colaboración en Github
 
-- prepare-commit-msg.sample -> Preparar el mensaje de commit
-- commit-msg.sample -> Validar el mensaje de commit
-- pre-commit.sample -> Validar los cambios antes de hacer un commit
-- push-to-checkout.sample -> Validar los cambios antes de hacer un checkout
-- pre-merge-commit.sample -> Validar los cambios antes de hacer un merge
-- pre-rebase.sample -> Validar los cambios antes de hacer un rebase
-- pre-push.sample -> Validar los cambios antes de hacer un push
-- pre-receive.sample -> Validar los cambios antes de recibir un push
+  - Pull Request
+    - Configuración de las rama main: Protección de ramas
+    - Revisión de código
+    - Actualización desde las ramas feature
+  - Pull request desde forks
+  - Pull request desde GitHub
+  - Tags y Releases
+  - Markdown + Markdown GitHub Addons (GFM = GitHub Flavored Markdown)
 
-- update.sample -> Validar los cambios antes de hacer un update
-- post-update.sample -> Notificar a los usuarios sobre actualizaciones
-- applypatch-msg.sample -> Validar los mensajes de los parches aplicados
-- pre-applypatch.sample -> Validar los parches antes de aplicarlos
-- fsmonitor-watchman.sample -> Integración con Watchman para mejorar el rendimiento de git status
-- sendemail-validate.sample -> Validar los correos electrónicos enviados
+- Gestión de proyectos en GitHub
 
-Estos hooks se pueden clasificar en dos tipos:
+  - Issues
+    - Etiquetas (Labels)
+    - Asignación (Assignees)
+    - Milestones
+    - Templates
+  - Proyectos (Projects)
+    - Tableros Kanban
+    - Automatización
+  - Repository Insights
+    - Pulse
+    - Contributors
+    - Commits
+    - Code frequency
+    - Dependency graph
+    - Network
+    - Forks
 
-- hooks de lado cliente: commits, emails, rebase, ...
-- hooks de lado servidor: prereceive, postreceive, update
+- GitHub social
 
-Los hooks de lado cliente se ejecutan en el equipo del desarrollador y permiten validar los cambios antes de hacer un commit, un push, un rebase, etc.
-Los hooks de lado servidor se ejecutan en el servidor y permiten validar los cambios antes de recibir un push, notificar a los usuarios sobre actualizaciones, etc.
+  - Seguidores (Followers)
+  - Estrellas (Stars)
+  - Discusiones (Discussions)
+  - Watchers - Notificaciones (Notifications)
+  - Gists
+  - Wikis
+  - Pages
 
-##### Husky
+- Github Actions
+  - Introducción
+  - Workflow. Partes y sintaxis
+  - Configuración y ejecución de un workflow
+  - Construir la imagen con Docker
+  - Secretos
 
-[Husky](https://typicode.github.io/husky/#/) es una herramienta que facilita la gestión de hooks en proyectos de JavaScript que utilizan Git.
+[^1]: GitHub utiliza Git como sistema de control de versiones, pero también soporta otros sistemas como Subversion (SVN) a través de una capa de compatibilidad.
+
+#### Archivos esenciales del repositorio
+
+- Archivo README : Funciona como la página principal de tu repositorio, explicando la función del proyecto y su utilidad. Puede ubicarse en la raíz, en la carpeta docs o en .github.
+- Archivo de licencia : Define cómo los desarrolladores pueden usar, modificar y distribuir el software. Debe estar en la carpeta raíz.
+  Código de conducta : Establece el comportamiento esperado de los colaboradores. GitHub proporciona plantillas para ello.
+- Política de seguridad : Especifica el soporte de seguridad y dónde reportar vulnerabilidades. Puede ubicarse en la raíz, en la carpeta docs o en .github.
+- Contributing.md : proporciona pautas sobre cómo contribuir al proyecto, incluidas las contribuciones aceptadas y los pasos para crear problemas.
+- Support.md : Informa a los usuarios sobre cómo obtener soporte para el proyecto. Puede ubicarse en la raíz, en la carpeta de documentación o en la carpeta .github.
+- Archivo CODEOWNERS : enumera a los individuos responsables de un código específico en el repositorio, garantizando que sean notificados de los cambios y las solicitudes de extracción.
+
+Estos archivos ayudan a organizar y administrar su repositorio de manera efectiva, lo que hace que sea más fácil para otros comprender, contribuir y usar su proyecto.
+
+#### GitHub CLI
+
+- **Website**: [https://cli.github.com/](https://cli.github.com/)
+- **Documentación**: [https://cli.github.com/manual/](https://cli.github
+
+Instalamos la aplicación descargada desde la web oficial y comprobamos la instalación con el comando
+
+```shell
+gh --version
+```
+
+Si estaba abierto Visual Studio Code, es necesario reiniciarlo para que detecte el nuevo comando gh en el path del sistema.
+
+Ejecutamos el comando `gh auth login`, para iniciar sesión con nuestra cuenta en GitHub, y seguimos las instrucciones directamente desde la aplicación de consola, donde nos preguntará
+
+- si queremos utilizar nuestro GitHub.com o
+- cuál es nuestro protocolo preferido para las operaciones de Git, HTTPS o SSH
+- si queremos autenticar Git con nuestras credenciales de GitHub.
+- cómo queremos autenticar GitHub CLI, con el navegador o con un token de acceso personal.
+
+```shell
+gh auth login
+? Where do you use GitHub?  [Use arrows to move, type to filter]
+> GitHub.com
+  Other
+? What is your preferred protocol for Git operations?  [Use arrows to move, type to filter]
+> HTTPS
+  SSH
+? Authenticate Git with your GitHub credentials?  [Use arrows to move, type to filter]
+> Yes
+  No
+? How would you like to authenticate GitHub CLI?  [Use arrows to move, type to filter]
+
+```
+
+Si Elegimos iniciar sesión con el navegador, nos proporcionará una URL para abrir en el navegador y un código de dispositivo de un solo uso que debemos copiar. Abrimos el navegador en la URL proporcionada y luego pegamos el código que copiamos anteriormente y presionamos continuar.
+Si aún no lo habíamos hecho, iniciaremos sesión con nuestro nombre de usuario y contraseña de GitHub y autorizaremos a GitHub CLI para acceder a nuestra cuenta de GitHub.
+
+Ahora que hemos hecho eso, volveremos a la aplicación de consola, donde después de un tiempo, recibirás la confirmación de que has iniciado sesión correctamente.
+
+Solo para probar que todo funcionó, ejecuta el comando `gh repo list`. Deberías ver la lista de tus propios repositorios de GitHub, y si tienes muchos, puedes limitar el número de resultados con la opción --limit, por ejemplo:
+
+```shell
+gh repo list --limit 5
+```
+
+(Por defecto el valor de --limit es 30 )
+
+##### Crear un repositorio
+
+Eel comando `gh repo create` permite crear un nuevo repositorio en GitHub. Puedes seguir un asistente interactivo para configurar el repositorio con la configuración que desees.
+
+- Asistente interactivo : Al ejecutar gh repo create sin argumentos, se inicia un asistente que te guía a través de las opciones para crear el repositorio, como el nombre, la visibilidad (público o privado) y si deseas clonarlo localmente.
+
+Las opciones de comando permiten hacerlo de forma no interactiva, indicando los valores deseados directamente en la línea de comandos. Por ejemplo, puedes usar --public o --private para establecer la visibilidad del repositorio, y --clone para clonarlo localmente después de crearlo.
+
+- Ejemplo de creación rápida : Para crear un repositorio público llamado my-new-repo y clonarlo localmente, puedes usar el siguiente comando:
+
+```shell
+gh repo create my-new-repo --public --clone
+```
+
+Comandos alternativos : También puedes crear un repositorio desde tu directorio local usando comandos como `gh repo create another-project --private --source=.`
+
+Esto creará un repositorio privado llamado another-project en GitHub y lo vinculará al directorio actual.
+
+Entre los comandos del CLI de GitHub para manejar repositorios, también están los siguientes:
+
+- `gh repo clone <repository>` : Clona un repositorio existente de GitHub a tu máquina local.
+- `gh repo fork <repository>` : Crea un fork de un repositorio existente en tu cuenta de GitHub.
+- `gh repo view <repository>` : Muestra información detallada sobre un repositorio específico
+- `gh repo delete <repository>` : Elimina un repositorio existente de tu cuenta de GitHub.
+- `gh repo list [<owner>]` : Lista los repositorios de un usuario u organización específica.
+- `gh repo rename <repository> <new-name>` : Cambia el nombre de un repositorio existente en tu cuenta de GitHub.
+- `gh repo archive <repository>` : Archiva un repositorio existente en tu cuenta de GitHub, haciéndolo de solo lectura.
+- `gh repo unarchive <repository>` : Desarchiva un repositorio previamente archivado en tu cuenta de GitHub, restaurando su estado activo.
+- `gh repo transfer <repository> <new-owner>` : Transfiere la propiedad de un repositorio a otro usuario u organización en GitHub.
+- `gh repo list --visibility <visibility>` : Filtra los repositorios listados por su visibilidad (público, privado o interno).
+
+##### Otros comandos
+
+CORE COMMANDS
+
+- browse: Open repositories, issues, pull requests, and more in the browser
+- codespace: Connect to and manage codespaces
+- gist: Manage gists
+- issue: Manage issues
+- org: Manage organizations
+- pr: Manage pull requests
+- project: Work with GitHub Projects.
+- release: Manage releases
+
+GITHUB ACTIONS COMMANDS
+
+- cache: Manage GitHub Actions caches
+- run: View details about workflow runs
+- workflow: View details about GitHub Actions workflows
+
+#### GITHUB PAGES
+
+GitHub Pages es un servicio de alojamiento web estático que ofrece GitHub para publicar sitios web directamente desde un repositorio de GitHub. Es una forma sencilla y gratuita de alojar páginas web personales, blogs, documentación de proyectos y sitios web de organizaciones.
+
+Podemos encontrar muchos ejemplos de sitios web creados con GitHub Pages en la [página de ejemplos](https://github.com/collections/github-pages-examples) de GitHub.
+
+##### Características principales de GitHub Pages
+
+- **Fácil de usar**: Puedes crear y publicar un sitio web con solo unos pocos clics desde la interfaz de GitHub.
+- **Integración con GitHub**: Los sitios web se generan directamente desde los archivos en tu repositorio, lo que facilita la actualización y el mantenimiento del contenido.
+- **Soporte para Jekyll**: GitHub Pages tiene soporte integrado para Jekyll, un generador de sitios estáticos que permite crear sitios web a partir de archivos Markdown y plantillas.
+- **Personalización de dominios**: Puedes usar un dominio personalizado para tu sitio web de GitHub Pages.
+- **HTTPS**: GitHub Pages ofrece soporte para HTTPS, lo que garantiza que tu sitio web sea seguro.
+- **Gratuito**: GitHub Pages es un servicio gratuito, lo que lo hace accesible para desarrolladores y proyectos de código abierto.
+
+##### Cómo crear un sitio web con GitHub Pages
+
+1. **Crear un repositorio**: Crea un nuevo repositorio en GitHub o usa uno existente.
+2. **Agregar contenido**: Agrega los archivos HTML, CSS, JavaScript o Markdown que deseas publicar en tu sitio web. Si usas Jekyll, puedes agregar archivos Markdown y plantillas. Puedes incluir el contenido en una rama especifica, en la raíz del repositorio (root) o en una carpeta llamada `docs`.
+3. **Configurar GitHub Pages**: Ve a la configuración del repositorio, desplázate hacia abajo hasta la sección "GitHub Pages" y selecciona la rama y la carpeta desde la que deseas publicar tu sitio web (por ejemplo, la rama `main` y la carpeta `/root` o `/docs`). Otra alternativa que aparece en la configuración en utilizar una gitHub Action para publicar el sitio web. Por defecto aparece la action de Jekyll o la apropiada según el contenido del repositorio (Next.js, Gatsby, Astro...).
+4. **Publicar el sitio web**: Una vez que hayas configurado GitHub Pages, GitHub generará automáticamente tu sitio web y te proporcionará una URL para acceder a él (por ejemplo, `https://tu-usuario.github.io/tu-repositorio`).
+5. **Personalizar el dominio (opcional)**: Si deseas usar un dominio personalizado, puedes configurar un archivo `CNAME` en tu repositorio con el nombre de tu dominio y actualizar la configuración de DNS en tu proveedor de dominio.
+6. **Actualizar el contenido**: Para actualizar tu sitio web, simplemente realiza cambios en los archivos de tu repositorio y haz un commit. GitHub Pages regenerará automáticamente tu sitio web con los cambios.
+
+#### Sitios Web y GitHub Pages
+
+Los generadores de sitios web estáticos como Jekyll, Hugo, Gatsby, Next.js y otros pueden integrarse fácilmente con GitHub Pages para publicar sitios web. Aquí hay algunos ejemplos:
+
+- **Jekyll**: Jekyll es el generador de sitios estáticos predeterminado para GitHub Pages. Puedes crear un sitio web con Jekyll y publicarlo directamente desde tu repositorio de GitHub.
+- **Hugo**: Hugo es otro generador de sitios estáticos popular que puedes usar para crear sitios web y publicarlos en GitHub Pages.
+- **Gatsby**: Gatsby es un generador de sitios web basado en React que también puede integrarse con GitHub Pages para publicar sitios web.
+- **Next.js**: Next.js es un framework de React que permite la generación de sitios estáticos y puede usarse para crear sitios web que se publiquen en GitHub Pages.
+- **Astro**: Astro es un moderno generador de sitios estáticos que soporta múltiples frameworks y puede integrarse con GitHub Pages para publicar sitios web.
+- **Otros generadores**: Otros generadores de sitios estáticos como Eleventy, VuePress, Docusaurus y más también pueden integrarse con GitHub Pages para publicar sitios web.
+
+## Día 5
+
+### GitHub (Continuación)
+
+#### GITHUB PAGES. Practicas
+
+##### Crear un sitio web con Astro y publicarlo en GitHub Pages
+
+Para crear un sitio con Astro y publicarlo en GitHub Pages, puedes seguir estos pasos:
+
+1. **Crear un nuevo proyecto Astro**: Si no tienes Astro instalado, primero instala Node.js y luego ejecuta el siguiente comando para crear un nuevo proyecto Astro:
+
+   ```bash
+   npm create astro@latest
+   ```
+
+   Sigue las instrucciones para configurar tu proyecto.
+
+2. **Desarrollar tu sitio web**: Navega al directorio de tu proyecto y comienza a desarrollar tu sitio web utilizando Astro. Puedes agregar páginas, componentes y estilos según tus necesidades.
+
+   ```bash
+   cd nombre-de-tu-proyecto (e.g. demo-astro-indra)
+   npm install
+   npm run dev
+   ```
+
+   Esto iniciará un servidor de desarrollo y podrás ver tu sitio web en `http://localhost:3000`.
+
+3. **Configurar la publicación en GitHub Pages**: Para publicar tu sitio web en GitHub Pages, necesitas configurar tu proyecto Astro para que genere los archivos estáticos en una carpeta específica. Abre el archivo `astro.config.mjs` y agrega o modifica la configuración de salida:
+
+   ```javascript
+   export default {
+     output: "static",
+     site: "https://alce65.github.io",
+     base: "/demo-astro-indra",
+     outDir: "./docs",
+     build: {
+       assets: "assets", // Cambia _astro por assets para GitHub Pages
+     },
+     // Otras configuraciones...
+   };
+   ```
+
+   Así la carpeta de salida esté configurada correctamente. Por defecto, Astro genera los archivos estáticos en la carpeta `dist`, pero lo hemos cambiado a `docs` para que GitHub Pages pueda servirlos directamente desde allí.
+
+   Luego, construye tu proyecto para generar los archivos estáticos:
+
+   ```bash
+   npm run build
+   ```
+
+   Esto generará los archivos estáticos en la carpeta `docs`.
+
+   Dentro de la aplicación, los url a las páginas y recursos deben ser relativos, para que funcionen correctamente cuando se publiquen en GitHub Pages, incluyendo la base URL. Para ello podemos usar la variable `import.meta.env.BASE_URL` que Astro proporciona para manejar la base URL. Asegúrate de que todos los enlaces y rutas en tu sitio web sean relativos y no absolutos.
+
+   Por ejemplo, si tienes una página llamada `about.astro`, el enlace a esa página debería ser `${import.meta.env.BASE_URL}/about` en lugar de una ruta absoluta.
+
+4. **Crear un repositorio en GitHub**: Crea un nuevo repositorio en GitHub donde alojarás tu sitio web. Puedes hacerlo desde la interfaz web de GitHub.
+
+5. **Agregar tu proyecto al repositorio**: Inicializa un repositorio Git en tu proyecto Astro, agrega los archivos y haz un commit:
+
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   ```
+
+   Luego, agrega el repositorio remoto de GitHub y empuja tus cambios:
+
+   ```bash
+   git remote add origin <URL_DEL_REPOSITORIO>
+   git branch -M main
+   git push -u origin main
+   ```
+
+6. **Configurar GitHub Pages**: Ve a la configuración de tu repositorio en GitHub, desplázate hasta la sección "GitHub Pages" y selecciona la rama `main` y la carpeta `/docs` como fuente para GitHub Pages. Guarda los cambios.
+
+7. **Publicar el sitio web**: GitHub generará automáticamente tu sitio web y te proporcionará una URL para acceder a él (por ejemplo, `https://tu-usuario.github.io/tu-repositorio`).
+
+Para más información sobre el despliegue de Astro en GitHub Pages, puedes consultar la [documentación oficial de Astro](https://docs.astro.build/en/guides/deploy/github/).
+
+#### GitHub CLI (continuación)
+
+Incluir contenido omitido el día anterior
+
+#### Releases (Liberaciones)
+
+Las **releases** (liberaciones) son versiones oficiales del software que se publican para los usuarios finales. Representan puntos específicos en el desarrollo del proyecto donde el código es considerado estable y listo para su uso en producción.
+
+Una release es una versión empaquetada y etiquetada del software que incluye:
+
+- **Código estable**: versión del software que ha pasado todas las pruebas
+- **Documentación**: notas de la versión, changelog, documentación de instalación
+- **Assets**: archivos binarios compilados, instaladores, paquetes
+- **Metadatos**: información sobre la versión, fecha de lanzamiento, autor
+
+##### Tipos de releases
+
+Siguiendo el estándar de **Versionado Semántico** (SemVer), las releases se clasifican en:
+
+- **Major releases** (X.0.0): Cambios incompatibles con versiones anteriores
+- **Minor releases** (1.X.0): Nueva funcionalidad compatible con versiones anteriores
+- **Patch releases** (1.1.X): Correcciones de bugs compatible con versiones anteriores
+- **Pre-releases**: Versiones de prueba (alpha, beta, rc)
+
+```shell
+# Ejemplos de versionado semántico
+v1.0.0     # Primera versión estable
+v1.1.0     # Nueva funcionalidad
+v1.1.1     # Corrección de bugs
+v2.0.0     # Cambios incompatibles
+v2.0.0-beta.1  # Pre-release
+```
+
+```shell
+# Estructura: MAJOR.MINOR.PATCH
+# 1.0.0 → 1.0.1 (patch: corrección de bugs)
+# 1.0.1 → 1.1.0 (minor: nueva funcionalidad)
+# 1.1.0 → 2.0.0 (major: cambios incompatibles)
+```
+
+##### Relación entre tags y releases
+
+Las releases están estrechamente vinculadas con los **tags** de Git:
+
+- **Tag**: Marca un commit específico con un nombre de versión
+- **Release**: Presentación pública del tag con documentación y assets
+
+Aunque ya hemos visto los tags, repasemos los comandos más útiles para gestionarlos en el contexto de releases:
+
+```shell
+# Crear un tag anotado para una release
+git tag -a v1.2.0 -m "Release version 1.2.0 - Nueva funcionalidad de exportación"
+
+# Ver todas las releases/tags
+git tag -l
+git tag -l "v1.*"
+
+# Subir el tag al repositorio remoto
+git push origin v1.2.0
+
+# Ver información detallada del tag
+git show v1.2.0
+
+# Eliminar tag local y remoto
+git tag -d v1.2.0
+git push origin --delete v1.2.0
+```
+
+Otros comandos útiles relacionados con la gestión de tags/releases:
+
+```shell
+# Comparar dos releases
+git diff v1.1.0..v1.2.0
+
+# Ver commits entre releases
+git log v1.1.0..v1.2.0 --oneline
+
+# Descargar una release específica
+git checkout v1.2.0
+```
+
+##### Buenas prácticas y opciones para releases
+
+- Versionado semántico
+- Notas de la versión claras
+- Automatización con Conventional Commits
+
+Las notas de la versión deben incluir:
+
+```markdown
+## What's Changed
+
+### 🚀 New Features
+
+- Implementación de exportación a PDF
+- Nuevo dashboard de analytics
+
+### 🐛 Bug Fixes
+
+- Corregido error en el login con espacios
+- Solucionado problema de memoria en procesamiento
+
+### 🔧 Improvements
+
+- Mejorado rendimiento de búsqueda (50% más rápido)
+- Actualizada documentación de API
+
+### ⚠️ Breaking Changes
+
+- Cambio en estructura de respuesta de API v2
+- Removido soporte para Node.js < 16
+
+### 📦 Dependencies
+
+- Actualizado React a v18.2.0
+- Añadido soporte para TypeScript 5.0
+```
+
+Los Conventional Commits son una convención para escribir mensajes de commit que facilitan la generación automática de notas de la versión y el versionado semántico. Algunos ejemplos de tipos de commits son:
+
+```shell
+# Formato de commits convencionales
+feat: añadir funcionalidad de exportación PDF
+fix: corregir error en validación de formularios
+docs: actualizar documentación de API
+chore: actualizar dependencias
+break: cambiar estructura de respuesta API
+
+# Generar release notes automáticamente
+git log --oneline v1.1.0..HEAD --grep="feat\|fix\|break"
+```
+
+Algunas herramientas útiles para gestionar releases de forma automatizada:
+
+- **semantic-release**: Automatización completa del proceso
+- **standard-version**: Generación automática de CHANGELOG
+- **release-please**: Herramienta de Google para automatizar releases
+
+##### Flujo de trabajo para releases en Git
+
+[1]. Preparación de la release
+
+```shell
+# 1. Crear rama de release
+git checkout -b release/v1.2.0
+
+# 2. Actualizar versión en archivos del proyecto
+# package.json, version.py, etc.
+
+# 3. Actualizar CHANGELOG.md
+# 4. Ejecutar tests
+npm test
+
+# 5. Build de producción
+npm run build
+
+# 6. Commit de preparación
+git add .
+git commit -m "chore: prepare release v1.2.0"
+```
+
+[2]. Creación del tag y release
+
+```shell
+# 1. Merge a main
+git checkout main
+git merge release/v1.2.0
+
+# 2. Crear tag anotado
+git tag -a v1.2.0 -m "Release v1.2.0 - Nueva funcionalidad de exportación"
+
+# 3. Push del tag
+git push origin main
+git push origin v1.2.0
+
+# 4. Crear release en GitHub (manual o automatizada)
+```
+
+[3]. Post-release
+
+```shell
+# 1. Merge de vuelta a develop
+git checkout develop
+git merge main
+
+# 2. Limpiar rama de release
+git branch -d release/v1.2.0
+
+# 3. Notificar al equipo y usuarios
+```
+
+##### Gestión de releases en las plataformas GitHub/GitLab
+
+- Interfaz web intuitiva
+- Integración con GitHub Actions
+- Assets automáticos desde releases
+
+###### Crear una release en GitHub
+
+Desde la interfaz web
+
+1. **Navegar a la sección Releases**
+
+   - Ir al repositorio en GitHub
+   - Hacer clic en "Releases" en la barra lateral derecha
+
+2. **Crear nueva release**
+
+   - Hacer clic en "Create a new release"
+   - Seleccionar un tag existente o crear uno nuevo
+
+3. **Completar la información**
+
+   - **Tag version**: Nombre del tag (ej: v1.2.0)
+   - **Release title**: Título descriptivo de la release
+   - **Description**: Notas de la versión detalladas
+   - **Assets**: Archivos binarios adicionales (opcional)
+
+4. **Opciones adicionales**
+   - **Pre-release**: Marcar si es una versión de prueba
+   - **Latest release**: Automáticamente marcada para la versión más reciente
+   - **Generate release notes**: GitHub puede generar notas automáticamente
+
+Desde línea de comandos con GitHub CLI
+
+```shell
+# Instalar GitHub CLI primero
+# Crear una release
+gh release create v1.2.0 --title "Version 1.2.0" --notes "Descripción de los cambios"
+
+# Crear release con archivos adjuntos
+gh release create v1.2.0 --title "Version 1.2.0" --notes-file CHANGELOG.md ./dist/*
+
+# Crear pre-release
+gh release create v1.2.0-beta --title "Version 1.2.0 Beta" --prerelease
+```
+
+###### Crear una release con el GitLab CLI
+
+```shell
+# Crear release con GitLab CLI
+glab release create v1.2.0 --name "Version 1.2.0" --notes "Release notes"
+```
+
+### CI/CD
+
+Ver documento aparte: [CI/CD](./ci-cd.md)
+
+## Apéndices
 
 ### SUB-PROYECTOS
 
@@ -3230,295 +3597,3 @@ git commit -m "Actualizado submodule nombre_submodule"
 ```
 
 Cuando otros usuarios han actualizado los submodulos y lo han reflejado en el repo compartido, al hacer un `git pull` en el repositorio principal, los submodules no se actualizan automáticamente. Se debe hacer un `git pull --recurse-submodules` para actualizar los submodules a la versión que indica el repositorio principal.
-
-### Apéndice. UTILIDADES. INTEGRACIÓN CON OTRAS HERRAMIENTAS Y ENTORNOS
-
-- GitK, GitG y git gui | git log graph | formato git log
-- IntelliJ
-- SourceTree
-- Github
-- GitLab
-- Bitbucket
-
-### Liberaciones (releases)
-
-Las **releases** (liberaciones) son versiones oficiales del software que se publican para los usuarios finales. Representan puntos específicos en el desarrollo del proyecto donde el código es considerado estable y listo para su uso en producción.
-
-#### ¿Qué son las releases?
-
-Una release es una versión empaquetada y etiquetada del software que incluye:
-
-- **Código estable**: versión del software que ha pasado todas las pruebas
-- **Documentación**: notas de la versión, changelog, documentación de instalación
-- **Assets**: archivos binarios compilados, instaladores, paquetes
-- **Metadatos**: información sobre la versión, fecha de lanzamiento, autor
-
-#### Tipos de releases
-
-Siguiendo el estándar de **Versionado Semántico** (SemVer), las releases se clasifican en:
-
-- **Major releases** (X.0.0): Cambios incompatibles con versiones anteriores
-- **Minor releases** (1.X.0): Nueva funcionalidad compatible con versiones anteriores
-- **Patch releases** (1.1.X): Correcciones de bugs compatible con versiones anteriores
-- **Pre-releases**: Versiones de prueba (alpha, beta, rc)
-
-```shell
-# Ejemplos de versionado semántico
-v1.0.0     # Primera versión estable
-v1.1.0     # Nueva funcionalidad
-v1.1.1     # Corrección de bugs
-v2.0.0     # Cambios incompatibles
-v2.0.0-beta.1  # Pre-release
-```
-
-#### Relación entre tags y releases
-
-Las releases están estrechamente vinculadas con los **tags** de Git:
-
-- **Tag**: Marca un commit específico con un nombre de versión
-- **Release**: Presentación pública del tag con documentación y assets
-
-```shell
-# Crear un tag anotado para una release
-git tag -a v1.2.0 -m "Release version 1.2.0 - Nueva funcionalidad de exportación"
-
-# Subir el tag al repositorio remoto
-git push origin v1.2.0
-
-# Ver información del tag
-git show v1.2.0
-```
-
-#### Crear una release en GitHub
-
-##### Desde la interfaz web
-
-1. **Navegar a la sección Releases**
-
-   - Ir al repositorio en GitHub
-   - Hacer clic en "Releases" en la barra lateral derecha
-
-2. **Crear nueva release**
-
-   - Hacer clic en "Create a new release"
-   - Seleccionar un tag existente o crear uno nuevo
-
-3. **Completar la información**
-
-   - **Tag version**: Nombre del tag (ej: v1.2.0)
-   - **Release title**: Título descriptivo de la release
-   - **Description**: Notas de la versión detalladas
-   - **Assets**: Archivos binarios adicionales (opcional)
-
-4. **Opciones adicionales**
-   - **Pre-release**: Marcar si es una versión de prueba
-   - **Latest release**: Automáticamente marcada para la versión más reciente
-   - **Generate release notes**: GitHub puede generar notas automáticamente
-
-##### Desde línea de comandos con GitHub CLI
-
-```shell
-# Instalar GitHub CLI primero
-# Crear una release
-gh release create v1.2.0 --title "Version 1.2.0" --notes "Descripción de los cambios"
-
-# Crear release con archivos adjuntos
-gh release create v1.2.0 --title "Version 1.2.0" --notes-file CHANGELOG.md ./dist/*
-
-# Crear pre-release
-gh release create v1.2.0-beta --title "Version 1.2.0 Beta" --prerelease
-```
-
-#### Buenas prácticas para releases
-
-##### Versionado semántico
-
-```shell
-# Estructura: MAJOR.MINOR.PATCH
-# 1.0.0 → 1.0.1 (patch: corrección de bugs)
-# 1.0.1 → 1.1.0 (minor: nueva funcionalidad)
-# 1.1.0 → 2.0.0 (major: cambios incompatibles)
-```
-
-##### Notas de la versión (Release Notes)
-
-Las notas de la versión deben incluir:
-
-```markdown
-## What's Changed
-
-### 🚀 New Features
-
-- Implementación de exportación a PDF
-- Nuevo dashboard de analytics
-
-### 🐛 Bug Fixes
-
-- Corregido error en el login con espacios
-- Solucionado problema de memoria en procesamiento
-
-### 🔧 Improvements
-
-- Mejorado rendimiento de búsqueda (50% más rápido)
-- Actualizada documentación de API
-
-### ⚠️ Breaking Changes
-
-- Cambio en estructura de respuesta de API v2
-- Removido soporte para Node.js < 16
-
-### 📦 Dependencies
-
-- Actualizado React a v18.2.0
-- Añadido soporte para TypeScript 5.0
-```
-
-##### Automatización con Conventional Commits
-
-```shell
-# Formato de commits convencionales
-feat: añadir funcionalidad de exportación PDF
-fix: corregir error en validación de formularios
-docs: actualizar documentación de API
-chore: actualizar dependencias
-break: cambiar estructura de respuesta API
-
-# Generar release notes automáticamente
-git log --oneline v1.1.0..HEAD --grep="feat\|fix\|break"
-```
-
-#### Flujo de trabajo para releases
-
-##### 1. Preparación de la release
-
-```shell
-# 1. Crear rama de release
-git checkout -b release/v1.2.0
-
-# 2. Actualizar versión en archivos del proyecto
-# package.json, version.py, etc.
-
-# 3. Actualizar CHANGELOG.md
-# 4. Ejecutar tests
-npm test
-
-# 5. Build de producción
-npm run build
-
-# 6. Commit de preparación
-git add .
-git commit -m "chore: prepare release v1.2.0"
-```
-
-##### 2. Creación del tag y release
-
-```shell
-# 1. Merge a main
-git checkout main
-git merge release/v1.2.0
-
-# 2. Crear tag anotado
-git tag -a v1.2.0 -m "Release v1.2.0 - Nueva funcionalidad de exportación"
-
-# 3. Push del tag
-git push origin main
-git push origin v1.2.0
-
-# 4. Crear release en GitHub (manual o automatizada)
-```
-
-##### 3. Post-release
-
-```shell
-# 1. Merge de vuelta a develop
-git checkout develop
-git merge main
-
-# 2. Limpiar rama de release
-git branch -d release/v1.2.0
-
-# 3. Notificar al equipo y usuarios
-```
-
-#### Automatización con GitHub Actions
-
-```yaml
-# .github/workflows/release.yml
-name: Create Release
-
-on:
-  push:
-    tags:
-      - "v*"
-
-jobs:
-  release:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Build project
-        run: |
-          npm ci
-          npm run build
-
-      - name: Create Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
-          body: |
-            ## Changes
-            - Auto-generated release from tag ${{ github.ref }}
-```
-
-#### Gestión de releases en diferentes plataformas
-
-##### GitHub
-
-- Interfaz web intuitiva
-- Integración con GitHub Actions
-- Assets automáticos desde releases
-
-##### GitLab
-
-```shell
-# Crear release con GitLab CLI
-glab release create v1.2.0 --name "Version 1.2.0" --notes "Release notes"
-```
-
-##### Otras herramientas
-
-- **semantic-release**: Automatización completa del proceso
-- **standard-version**: Generación automática de CHANGELOG
-- **release-please**: Herramienta de Google para automatizar releases
-
-#### Comandos útiles para gestión de releases
-
-```shell
-# Ver todas las releases/tags
-git tag -l
-git tag -l "v1.*"
-
-# Ver información detallada de una release
-git show v1.2.0
-
-# Comparar dos releases
-git diff v1.1.0..v1.2.0
-
-# Ver commits entre releases
-git log v1.1.0..v1.2.0 --oneline
-
-# Descargar una release específica
-git checkout v1.2.0
-
-# Eliminar tag local y remoto
-git tag -d v1.2.0
-git push origin --delete v1.2.0
-```
-
-Las releases son fundamentales para la gestión profesional de proyectos de software, proporcionando puntos de referencia claros para el desarrollo, deployment y mantenimiento del código.

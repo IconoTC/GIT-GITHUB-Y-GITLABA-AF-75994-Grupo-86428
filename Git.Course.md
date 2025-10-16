@@ -121,7 +121,24 @@
         - [Git pull](#git-pull)
       - [Pull Request](#pull-request)
         - [Configuración de las ramas y PR](#configuración-de-las-ramas-y-pr)
-        - [Actualizaciones de las ramas feature](#actualizaciones-de-las-ramas-feature)
+        - [Actualizaciones de las ramas feature y conflictos](#actualizaciones-de-las-ramas-feature-y-conflictos)
+    - [FLUJOS DE TRABAJO (WORKFLOWS)](#flujos-de-trabajo-workflows)
+      - [Workflows](#workflows)
+        - [GitFlow](#gitflow)
+        - [GitLab Flow (Environment Branching)](#gitlab-flow-environment-branching)
+        - [GitHub Flow, Feature Branching, Trunk Based Development](#github-flow-feature-branching-trunk-based-development)
+        - [Ship-show-ask](#ship-show-ask)
+    - [CONFIGURACIÓN DE GIT. Hooks](#configuración-de-git-hooks)
+      - [Configuración. gitconfig](#configuración-gitconfig)
+      - [Hooks](#hooks)
+        - [Husky](#husky)
+    - [SUB-PROYECTOS](#sub-proyectos)
+      - [Submodules](#submodules)
+        - [Creación de un submodule](#creación-de-un-submodule)
+          - [Clonado de un repositorio con submodules: inicialización](#clonado-de-un-repositorio-con-submodules-inicialización)
+        - [Actualizaciones de un submodule](#actualizaciones-de-un-submodule)
+    - [BUENAS PRÁCTICAS](#buenas-prácticas)
+    - [Apéndice. UTILIDADES. INTEGRACIÓN CON OTRAS HERRAMIENTAS Y ENTORNOS](#apéndice-utilidades-integración-con-otras-herramientas-y-entornos)
     - [Liberaciones (releases)](#liberaciones-releases)
       - [¿Qué son las releases?](#qué-son-las-releases)
       - [Tipos de releases](#tipos-de-releases)
@@ -143,23 +160,6 @@
         - [GitLab](#gitlab)
         - [Otras herramientas](#otras-herramientas)
       - [Comandos útiles para gestión de releases](#comandos-útiles-para-gestión-de-releases)
-    - [FLUJOS DE TRABAJO (WORKFLOWS)](#flujos-de-trabajo-workflows)
-      - [Workflows](#workflows)
-        - [GitFlow](#gitflow)
-        - [GitLab Flow (Environment Branching)](#gitlab-flow-environment-branching)
-        - [GitHub Flow, Feature Branching, Trunk Based Development](#github-flow-feature-branching-trunk-based-development)
-        - [Ship-show-ask](#ship-show-ask)
-    - [CONFIGURACIÓN DE GIT. Hooks](#configuración-de-git-hooks)
-      - [Configuración. gitconfig](#configuración-gitconfig)
-      - [Hooks](#hooks)
-        - [Husky](#husky)
-    - [SUB-PROYECTOS](#sub-proyectos)
-      - [Submodules](#submodules)
-        - [Creación de un submodule](#creación-de-un-submodule)
-          - [Clonado de un repositorio con submodules: inicialización](#clonado-de-un-repositorio-con-submodules-inicialización)
-        - [Actualizaciones de un submodule](#actualizaciones-de-un-submodule)
-    - [BUENAS PRÁCTICAS](#buenas-prácticas)
-    - [Apéndice. UTILIDADES. INTEGRACIÓN CON OTRAS HERRAMIENTAS Y ENTORNOS](#apéndice-utilidades-integración-con-otras-herramientas-y-entornos)
 
 ## Formador
 
@@ -2881,7 +2881,7 @@ Todos estos ajustes se realizan en la configuración del repositorio en el servi
 
 Otra opción es utilizar "Add classic branch protection rule" que también permite configurar las opciones de protección de la rama principal de forma detallada.
 
-##### Actualizaciones de las ramas feature
+##### Actualizaciones de las ramas feature y conflictos
 
 Con el tiempo, la rama principal puede avanzar y la rama feature puede quedarse desactualizada. Para mantenerla actualizada, se puede hacer un merge de la rama feature sobre la rama principal, después de haber actualizado esta.
 
@@ -2897,6 +2897,348 @@ Los posibles conflictos se resuelven como en cualquier merge, en el entrono loca
 ```shell
 git push
 ```
+
+### FLUJOS DE TRABAJO (WORKFLOWS)
+
+#### Workflows
+
+##### GitFlow
+
+El GitFlow es un modelo de ramificación que se basa en dos ramas principales:
+
+- master: rama principal, estable, que contiene el código en producción
+- develop: rama de desarrollo, inestable, que contiene el código en desarrollo
+
+Además, se utilizan otras ramas auxiliares:
+
+- feature: rama de desarrollo de una nueva funcionalidad
+- release: rama de preparación de una nueva versión
+- hotfix: rama de corrección de errores en producción
+
+El flujo de trabajo es el siguiente:
+
+1. Se crea una rama feature a partir de develop
+2. Se desarrolla la funcionalidad en la rama feature
+3. Se fusiona la rama feature en develop
+4. Se crea una rama release a partir de develop
+5. Se prepara la nueva versión en la rama release
+6. Se fusiona la rama release en master
+7. Se fusiona la rama release en develop
+
+En caso de que aparezca la necesidad de corregir un error en producción,
+
+1. se crea una rama hotfix a partir de master
+2. se corrige el error
+3. se fusiona la rama hotfix en master y develop.
+
+![Git flow](assets/git_flow.png)
+
+Entre las ventajas del GitFlow se encuentran:
+
+- Facilita la colaboración en equipos grandes
+- Hay mucha documentación y herramientas que lo soportan
+- Es un modelo muy extendido
+- Las ramas están muy bien definidas y organizadas
+
+Entre las desventajas del GitFlow se encuentran:
+
+- Es un modelo muy complejo, especialmente para equipos pequeños
+- Puede ser difícil de entender y de implementar
+- Si hay un rollback, puede ser complicado de gestionar y se pierde todo el valor entregado
+- Las ramas feature pueden ser muy largas y difíciles de gestionar
+- Puede haber problemas de integración si no se hace un merge frecuente
+- No esta muy bien adaptado a la filosofía de entrega continua (CI/CD)
+
+Refetencias
+
+- [Git Flow](https://nvie.com/posts/a-successful-git-branching-model/)
+- [Git Flow Cheatsheet](https://danielkummer.github.io/git-flow-cheatsheet/)
+
+##### GitLab Flow (Environment Branching)
+
+El GitLab Flow es un modelo de ramificación que se basa en las siguientes ramas:
+
+- environment: ramas de entorno, que contienen el código en producción, preproducción, etc.
+- master: rama principal, estable, que contiene el código en desarrollo
+- feature: ramas de desarrollo de una nueva funcionalidad
+- hotfix: ramas de corrección de errores en producción
+
+El flujo de trabajo es el siguiente:
+
+1. Se crea una rama feature a partir de master
+2. Se desarrolla la funcionalidad en la rama feature
+3. Se fusiona la rama feature en master
+4. Se crea una rama environment a partir de master
+5. Se despliega la rama environment en un entorno de pruebas
+6. Se prueba la funcionalidad en el entorno de pruebas
+7. Se fusiona la rama environment en producción
+8. Se despliega la rama environment en producción
+
+![GitLab flow](assets/gitlab_flow.png)
+
+Entre las ventajas del GitLab Flow se encuentran:
+
+- Facilita la colaboración en equipos grandes
+- Master nunca esta roto, siempre está en producción
+- Los environment branches permiten tener entorno para probar distintas configuraciones
+
+Entre las desventajas del GitLab Flow se encuentran:
+
+- Es un modelo muy complejo, especialmente para equipos pequeños
+- Las ramas feature pueden ser muy largas y difíciles de gestionar
+- Si hay un rollback, puede ser complicado de gestionar y se pierde todo el valor entregado
+- No esta muy bien adaptado a la filosofía de entrega continua (CI/CD)
+
+Referencias
+
+- [GitLab Flow](https://about.gitlab.com/topics/version-control/what-are-gitlab-flow-best-practices/)- - [Environment and other Branching Strategies](https://www.javacodegeeks.com/2015/11/git-branching-strategies.html)
+
+##### GitHub Flow, Feature Branching, Trunk Based Development
+
+El GitHub Flow, con distintas variantes conocidas como Feature Branching o Trunk Based Development, es un modelo de ramificación que se basa en las siguientes ramas:
+
+- master: rama principal, estable, que contiene el código en producción
+- feature: ramas cortas de de desarrollo de una nueva funcionalidad
+
+El flujo de trabajo es el siguiente:
+
+1. Se crea una rama feature a partir de master
+2. Se desarrolla la funcionalidad en la rama feature
+3. Se fusiona la rama feature en master
+4. Se despliega la rama master en producción
+5. En algunas variantes del modelo, se aplican tags a determinados commits de master para marcar las versiones
+6. Se repite el proceso con cada nueva rama feature
+
+![GitHub flow](assets/github_flow.png)
+
+Entre las ventajas del GitHub Flow se encuentran:
+
+- Es un modelo muy sencillo, fácil de entender y de implementar
+- Facilita la colaboración en equipos pequeños
+- Master nunca esta roto, siempre está en producción
+- Las ramas feature son cortas y fáciles de gestionar
+- Se adapta muy bien a la filosofía de entrega continua (CI/CD)
+
+Entre las desventajas del GitHub Flow se encuentran:
+
+- Puede no ser adecuado para equipos grandes
+- Es muy importante que las ramas de feature sean cortas
+- Al aplicarse la filosofía de CI/CD y desplegar master en producción, la integración de estar bien automatizada y los tests se vuelven críticos
+
+Referencias
+
+- [GitHub Flow](https://guides.github.com/introduction/flow/)
+- [Understanding the GitHub Flow](https://github.com/a-a-ron/Github-Flow)
+- [Trunk based ](https://trunkbaseddevelopment.com/)
+
+##### Ship-show-ask
+
+Es un modelo de ramificación propuesto más recientemente que se basa en tres procedimientos diferentes
+
+- Ship: se desarrolla el código directamente en master y por tanto se envía inmediatamente a producción
+- Show: se desarrolla el código en una rama feature y se muestra a los interesados antes de fusionarla en master, pero sin someterla a un proceso de code review y aprobación
+- Ask: se desarrolla el código en una rama feature y se somete a un proceso de code review y aprobación antes de fusionarla en master, como se hace en el GitHub Flow
+
+El desarrollador cobra un mayor protagonismo al decidir cual de las tres estrategias aplicar en cada caso, en función de la criticidad del cambio, la complejidad del código, la urgencia del despliegue, etc.
+
+Referencias
+
+- [ship-show-ask](https://martinfowler.com/articles/ship-show-ask.html)
+
+### BUENAS PRÁCTICAS
+
+- Commits atómicos
+- Commits frecuentes
+- No commits de trabajo a medias
+- Buenos mensajes de commit
+- Test antes de commit
+- Usar branches, feature-branching
+- Fijar un workflow común
+
+### CONFIGURACIÓN DE GIT. Hooks
+
+#### Configuración. gitconfig
+
+- .alias
+- Editor
+- Coloreado comandos
+- Formato salida comandos
+- Otras opciones
+
+#### Hooks
+
+Los hooks son scripts que se ejecutan automáticamente en determinados momentos del ciclo de vida de un repositorio Git. Permiten automatizar tareas, como la validación de código, la ejecución de tests, el envío de notificaciones, etc.
+
+Podemos encontrar información sobre su funcionamiento
+
+- en la documentación oficial de Git: https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks
+- el el libro Pro Git: https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks
+
+Al inicializar un nuevo repositorio con `git init`, Git llena el directorio de hooks `.git/hooks` con varios scripts de ejemplo, muchos de los cuales son útiles por sí mismos; además, documentan los valores de entrada de cada script. Todos los ejemplos están escritos como `scripts de shell`, con algo de `Perl`, pero cualquier script ejecutable con un nombre correcto funcionará correctamente; (`Ruby`, `Python`...). Si quieres usar los scripts de hook incluidos, tendrás que renombrarlos; todos sus nombres de archivo terminan en .sample.
+
+Los hooks que se encuentran inicialmente en el directorio `.git/hooks` del repositorio son los siguientes:
+
+- prepare-commit-msg.sample -> Preparar el mensaje de commit
+- commit-msg.sample -> Validar el mensaje de commit
+- pre-commit.sample -> Validar los cambios antes de hacer un commit
+- push-to-checkout.sample -> Validar los cambios antes de hacer un checkout
+- pre-merge-commit.sample -> Validar los cambios antes de hacer un merge
+- pre-rebase.sample -> Validar los cambios antes de hacer un rebase
+- pre-push.sample -> Validar los cambios antes de hacer un push
+- pre-receive.sample -> Validar los cambios antes de recibir un push
+
+- update.sample -> Validar los cambios antes de hacer un update
+- post-update.sample -> Notificar a los usuarios sobre actualizaciones
+- applypatch-msg.sample -> Validar los mensajes de los parches aplicados
+- pre-applypatch.sample -> Validar los parches antes de aplicarlos
+- fsmonitor-watchman.sample -> Integración con Watchman para mejorar el rendimiento de git status
+- sendemail-validate.sample -> Validar los correos electrónicos enviados
+
+Estos hooks se pueden clasificar en dos tipos:
+
+- hooks de lado cliente: commits, emails, rebase, ...
+- hooks de lado servidor: prereceive, postreceive, update
+
+Los hooks de lado cliente se ejecutan en el equipo del desarrollador y permiten validar los cambios antes de hacer un commit, un push, un rebase, etc.
+Los hooks de lado servidor se ejecutan en el servidor y permiten validar los cambios antes de recibir un push, notificar a los usuarios sobre actualizaciones, etc.
+
+##### Husky
+
+[Husky](https://typicode.github.io/husky/#/) es una herramienta que facilita la gestión de hooks en proyectos de JavaScript que utilizan Git.
+
+### SUB-PROYECTOS
+
+Existen varias formas de incluir un subproyecto en un proyecto Git
+
+- Submodules
+- Subtree
+- Subrepo (opción extra, no incluida en Git)
+
+Los submodules son la opción más utilizada y la que mejor se integra con Git. Permiten incluir un repositorio Git dentro de otro repositorio Git, manteniendo ambos repositorios independientes.
+Los subtree permiten incluir un repositorio Git dentro de otro repositorio Git, pero integrando ambos repositorios en uno solo. No mantienen la independencia entre ambos repositorios.
+
+#### Submodules
+
+Los submodules son una característica de Git que permite incluir un repositorio Git dentro de otro repositorio Git, manteniendo ambos repositorios independientes.
+Los submodules son útiles cuando se quiere incluir una librería, un framework, un plugin, etc. en un proyecto, pero se quiere mantener la independencia entre ambos proyectos.
+
+##### Creación de un submodule
+
+El primer paso es añadir un repositorio ya existente como submodule al repositorio principal con el comando `git submodule add`
+
+```shell
+git submodule add \<url\> [<path>]
+```
+
+La url es la dirección del repositorio que se quiere añadir como submodule.
+El path es el directorio donde se quiere clonar el submodule. Si no se indica, se clona en un directorio con el mismo nombre que el repositorio. Un valor habitual para librerías externas es `vendor/nombre_libreria`
+
+El resultado es el equivalente a clonar el repositorio en el directorio indicado y añadir un fichero `.gitmodules` en el que se almacena los metadata con la información del submodule, como la url y el path.
+
+Si despues de añadir el submodule se hace un `git status`, se verá que hay dos cambios pendientes de commit
+
+- el fichero `.gitmodules`
+- el directorio del submodule, que se muestra como un nuevo fichero, con el nombre del submodule y el hash del commit al que apunta
+
+```shell
+git status
+On branch main
+new file:   .gitmodules
+new file:   nombre_submodule (new commits)
+```
+
+Si hacemos git add y git diff, veremos que no muestra los cambios en el submodule como una carpeta, sino como el hash del commit al que apunta el submodule.
+
+```shell
+git add .
+git diff --cached
+diff --git a/.gitmodules b/.gitmodules
+new file mode 100644
+index 0000000..e69de29
+--- /dev/null
++++ b/.gitmodules
+@@ -0,0 +1,3 @@
++ [submodule "nombre_submodule"]
++	path = nombre_submodule
++	url = <url>
+diff --git a/nombre_submodule b/nombre_submodule
+new file mode 160000
+index 0000000..4b825dc
+--- /dev/null
++++ b/nombre_submodule
+@@ -0,0 +1 @@
++Subproject commit 4b825dc642cb6eb9a060e54bf8d69288fbee4904
+```
+
+Lo siguiente paso es hacer un commit para guardar los cambios en el repositorio principal.
+
+```shell
+git commit -m "Añadido submodule nombre_submodule"
+```
+
+###### Clonado de un repositorio con submodules: inicialización
+
+Cuando se clona un repositorio que contiene submodules, los submodules no se clonan automáticamente. Se crea la estructura de directorios, pero no se descargan los ficheros del submodule. Es necesario inicializarlos y actualizarlos con los comandos `git submodule init` (para registrar el submodule) y `git submodule update` (para descargar los ficheros del submodule)
+
+```shell
+git submodule init
+git submodule update
+```
+
+Si se quiere clonar el repositorio y los submodules en un solo paso, se puede utilizar el modificador `--recurse-submodules` del comando `git clone`
+
+```shell
+git clone --recurse-submodules <url>
+```
+
+##### Actualizaciones de un submodule
+
+Los submodules son independientes del repositorio principal, por lo que se pueden actualizar de forma independiente. Para actualizar un submodule, existen dos mecanismos.
+
+- Primera opción
+
+se debe entrar en el directorio del submodule y hacer un `git pull` para descargar los cambios del repositorio remoto del submodule.
+
+```shell
+cd nombre_submodule
+git pull
+```
+
+Como se habrá actualizado el submodule apuntando al nuevo commit final de repo al que apunta , el repositorio principal detectará que hay cambios pendientes de commit en el submodule. Se debe hacer un `git add` y un `git commit` para guardar los cambios en el repositorio principal.
+
+```shell
+cd ..
+git add nombre_submodule
+git commit -m "Actualizado submodule nombre_submodule"
+```
+
+- Segunda opción
+
+Se puede actualizar el submodule desde el repositorio principal, sin entrar en el directorio del submodule, con el comando `git submodule update --remote`
+
+```shell
+git submodule update --remote --recursive
+```
+
+De esta forma se actualizarían todos los submódulos que haya en el repositorio, incluidos los submódulos de los submódulos (si los hubiera).
+
+Como en el caso anterior, se debe hacer un `git add` y un `git commit` para guardar los cambios en el repositorio principal.
+
+```shell
+git add .
+git commit -m "Actualizado submodule nombre_submodule"
+```
+
+Cuando otros usuarios han actualizado los submodulos y lo han reflejado en el repo compartido, al hacer un `git pull` en el repositorio principal, los submodules no se actualizan automáticamente. Se debe hacer un `git pull --recurse-submodules` para actualizar los submodules a la versión que indica el repositorio principal.
+
+### Apéndice. UTILIDADES. INTEGRACIÓN CON OTRAS HERRAMIENTAS Y ENTORNOS
+
+- GitK, GitG y git gui | git log graph | formato git log
+- IntelliJ
+- SourceTree
+- Github
+- GitLab
+- Bitbucket
 
 ### Liberaciones (releases)
 
@@ -3180,345 +3522,3 @@ git push origin --delete v1.2.0
 ```
 
 Las releases son fundamentales para la gestión profesional de proyectos de software, proporcionando puntos de referencia claros para el desarrollo, deployment y mantenimiento del código.
-
-### FLUJOS DE TRABAJO (WORKFLOWS)
-
-#### Workflows
-
-##### GitFlow
-
-El GitFlow es un modelo de ramificación que se basa en dos ramas principales:
-
-- master: rama principal, estable, que contiene el código en producción
-- develop: rama de desarrollo, inestable, que contiene el código en desarrollo
-
-Además, se utilizan otras ramas auxiliares:
-
-- feature: rama de desarrollo de una nueva funcionalidad
-- release: rama de preparación de una nueva versión
-- hotfix: rama de corrección de errores en producción
-
-El flujo de trabajo es el siguiente:
-
-1. Se crea una rama feature a partir de develop
-2. Se desarrolla la funcionalidad en la rama feature
-3. Se fusiona la rama feature en develop
-4. Se crea una rama release a partir de develop
-5. Se prepara la nueva versión en la rama release
-6. Se fusiona la rama release en master
-7. Se fusiona la rama release en develop
-
-En caso de que aparezca la necesidad de corregir un error en producción,
-
-1. se crea una rama hotfix a partir de master
-2. se corrige el error
-3. se fusiona la rama hotfix en master y develop.
-
-![Git flow](assets/git_flow.png)
-
-Entre las ventajas del GitFlow se encuentran:
-
-- Facilita la colaboración en equipos grandes
-- Hay mucha documentación y herramientas que lo soportan
-- Es un modelo muy extendido
-- Las ramas están muy bien definidas y organizadas
-
-Entre las desventajas del GitFlow se encuentran:
-
-- Es un modelo muy complejo, especialmente para equipos pequeños
-- Puede ser difícil de entender y de implementar
-- Si hay un rollback, puede ser complicado de gestionar y se pierde todo el valor entregado
-- Las ramas feature pueden ser muy largas y difíciles de gestionar
-- Puede haber problemas de integración si no se hace un merge frecuente
-- No esta muy bien adaptado a la filosofía de entrega continua (CI/CD)
-
-Refetencias
-
-- [Git Flow](https://nvie.com/posts/a-successful-git-branching-model/)
-- [Git Flow Cheatsheet](https://danielkummer.github.io/git-flow-cheatsheet/)
-
-##### GitLab Flow (Environment Branching)
-
-El GitLab Flow es un modelo de ramificación que se basa en las siguientes ramas:
-
-- environment: ramas de entorno, que contienen el código en producción, preproducción, etc.
-- master: rama principal, estable, que contiene el código en desarrollo
-- feature: ramas de desarrollo de una nueva funcionalidad
-- hotfix: ramas de corrección de errores en producción
-
-El flujo de trabajo es el siguiente:
-
-1. Se crea una rama feature a partir de master
-2. Se desarrolla la funcionalidad en la rama feature
-3. Se fusiona la rama feature en master
-4. Se crea una rama environment a partir de master
-5. Se despliega la rama environment en un entorno de pruebas
-6. Se prueba la funcionalidad en el entorno de pruebas
-7. Se fusiona la rama environment en producción
-8. Se despliega la rama environment en producción
-
-![GitLab flow](assets/gitlab_flow.png)
-
-Entre las ventajas del GitLab Flow se encuentran:
-
-- Facilita la colaboración en equipos grandes
-- Master nunca esta roto, siempre está en producción
-- Los environment branches permiten tener entorno para probar distintas configuraciones
-
-Entre las desventajas del GitLab Flow se encuentran:
-
-- Es un modelo muy complejo, especialmente para equipos pequeños
-- Las ramas feature pueden ser muy largas y difíciles de gestionar
-- Si hay un rollback, puede ser complicado de gestionar y se pierde todo el valor entregado
-- No esta muy bien adaptado a la filosofía de entrega continua (CI/CD)
-
-Referencias
-
-- [GitLab Flow](https://about.gitlab.com/topics/version-control/what-are-gitlab-flow-best-practices/)- - [Environment and other Branching Strategies](https://www.javacodegeeks.com/2015/11/git-branching-strategies.html)
-
-##### GitHub Flow, Feature Branching, Trunk Based Development
-
-El GitHub Flow, con distintas variantes conocidas como Feature Branching o Trunk Based Development, es un modelo de ramificación que se basa en las siguientes ramas:
-
-- master: rama principal, estable, que contiene el código en producción
-- feature: ramas cortas de de desarrollo de una nueva funcionalidad
-
-El flujo de trabajo es el siguiente:
-
-1. Se crea una rama feature a partir de master
-2. Se desarrolla la funcionalidad en la rama feature
-3. Se fusiona la rama feature en master
-4. Se despliega la rama master en producción
-5. En algunas variantes del modelo, se aplican tags a determinados commits de master para marcar las versiones
-6. Se repite el proceso con cada nueva rama feature
-
-![GitHub flow](assets/github_flow.png)
-
-Entre las ventajas del GitHub Flow se encuentran:
-
-- Es un modelo muy sencillo, fácil de entender y de implementar
-- Facilita la colaboración en equipos pequeños
-- Master nunca esta roto, siempre está en producción
-- Las ramas feature son cortas y fáciles de gestionar
-- Se adapta muy bien a la filosofía de entrega continua (CI/CD)
-
-Entre las desventajas del GitHub Flow se encuentran:
-
-- Puede no ser adecuado para equipos grandes
-- Es muy importante que las ramas de feature sean cortas
-- Al aplicarse la filosofía de CI/CD y desplegar master en producción, la integración de estar bien automatizada y los tests se vuelven críticos
-
-Referencias
-
-- [GitHub Flow](https://guides.github.com/introduction/flow/)
-- [Understanding the GitHub Flow](https://github.com/a-a-ron/Github-Flow)
-- [Trunk based ](https://trunkbaseddevelopment.com/)
-
-##### Ship-show-ask
-
-Es un modelo de ramificación propuesto más recientemente que se basa en tres procedimientos diferentes
-
-- Ship: se desarrolla el código directamente en master y por tanto se envía inmediatamente a producción
-- Show: se desarrolla el código en una rama feature y se muestra a los interesados antes de fusionarla en master, pero sin someterla a un proceso de code review y aprobación
-- Ask: se desarrolla el código en una rama feature y se somete a un proceso de code review y aprobación antes de fusionarla en master, como se hace en el GitHub Flow
-
-El desarrollador cobra un mayor protagonismo al decidir cual de las tres estrategias aplicar en cada caso, en función de la criticidad del cambio, la complejidad del código, la urgencia del despliegue, etc.
-
-Referencias
-
-- [ship-show-ask](https://martinfowler.com/articles/ship-show-ask.html)
-
-### CONFIGURACIÓN DE GIT. Hooks
-
-#### Configuración. gitconfig
-
-- .alias
-- Editor
-- Coloreado comandos
-- Formato salida comandos
-- Otras opciones
-
-#### Hooks
-
-Los hooks son scripts que se ejecutan automáticamente en determinados momentos del ciclo de vida de un repositorio Git. Permiten automatizar tareas, como la validación de código, la ejecución de tests, el envío de notificaciones, etc.
-
-Podemos encontrar información sobre su funcionamiento
-
-- en la documentación oficial de Git: https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks
-- el el libro Pro Git: https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks
-
-Al inicializar un nuevo repositorio con `git init`, Git llena el directorio de hooks `.git/hooks` con varios scripts de ejemplo, muchos de los cuales son útiles por sí mismos; además, documentan los valores de entrada de cada script. Todos los ejemplos están escritos como `scripts de shell`, con algo de `Perl`, pero cualquier script ejecutable con un nombre correcto funcionará correctamente; (`Ruby`, `Python`...). Si quieres usar los scripts de hook incluidos, tendrás que renombrarlos; todos sus nombres de archivo terminan en .sample.
-
-Los hooks que se encuentran inicialmente en el directorio `.git/hooks` del repositorio son los siguientes:
-
-- prepare-commit-msg.sample -> Preparar el mensaje de commit
-- commit-msg.sample -> Validar el mensaje de commit
-- pre-commit.sample -> Validar los cambios antes de hacer un commit
-- push-to-checkout.sample -> Validar los cambios antes de hacer un checkout
-- pre-merge-commit.sample -> Validar los cambios antes de hacer un merge
-- pre-rebase.sample -> Validar los cambios antes de hacer un rebase
-- pre-push.sample -> Validar los cambios antes de hacer un push
-- pre-receive.sample -> Validar los cambios antes de recibir un push
-
-- update.sample -> Validar los cambios antes de hacer un update
-- post-update.sample -> Notificar a los usuarios sobre actualizaciones
-- applypatch-msg.sample -> Validar los mensajes de los parches aplicados
-- pre-applypatch.sample -> Validar los parches antes de aplicarlos
-- fsmonitor-watchman.sample -> Integración con Watchman para mejorar el rendimiento de git status
-- sendemail-validate.sample -> Validar los correos electrónicos enviados
-
-Estos hooks se pueden clasificar en dos tipos:
-
-- hooks de lado cliente: commits, emails, rebase, ...
-- hooks de lado servidor: prereceive, postreceive, update
-
-Los hooks de lado cliente se ejecutan en el equipo del desarrollador y permiten validar los cambios antes de hacer un commit, un push, un rebase, etc.
-Los hooks de lado servidor se ejecutan en el servidor y permiten validar los cambios antes de recibir un push, notificar a los usuarios sobre actualizaciones, etc.
-
-##### Husky
-
-[Husky](https://typicode.github.io/husky/#/) es una herramienta que facilita la gestión de hooks en proyectos de JavaScript que utilizan Git.
-
-### SUB-PROYECTOS
-
-Existen varias formas de incluir un subproyecto en un proyecto Git
-
-- Submodules
-- Subtree
-- Subrepo (opción extra, no incluida en Git)
-
-Los submodules son la opción más utilizada y la que mejor se integra con Git. Permiten incluir un repositorio Git dentro de otro repositorio Git, manteniendo ambos repositorios independientes.
-Los subtree permiten incluir un repositorio Git dentro de otro repositorio Git, pero integrando ambos repositorios en uno solo. No mantienen la independencia entre ambos repositorios.
-
-#### Submodules
-
-Los submodules son una característica de Git que permite incluir un repositorio Git dentro de otro repositorio Git, manteniendo ambos repositorios independientes.
-Los submodules son útiles cuando se quiere incluir una librería, un framework, un plugin, etc. en un proyecto, pero se quiere mantener la independencia entre ambos proyectos.
-
-##### Creación de un submodule
-
-El primer paso es añadir un repositorio ya existente como submodule al repositorio principal con el comando `git submodule add`
-
-```shell
-git submodule add \<url\> [<path>]
-```
-
-La url es la dirección del repositorio que se quiere añadir como submodule.
-El path es el directorio donde se quiere clonar el submodule. Si no se indica, se clona en un directorio con el mismo nombre que el repositorio. Un valor habitual para librerías externas es `vendor/nombre_libreria`
-
-El resultado es el equivalente a clonar el repositorio en el directorio indicado y añadir un fichero `.gitmodules` en el que se almacena los metadata con la información del submodule, como la url y el path.
-
-Si despues de añadir el submodule se hace un `git status`, se verá que hay dos cambios pendientes de commit
-
-- el fichero `.gitmodules`
-- el directorio del submodule, que se muestra como un nuevo fichero, con el nombre del submodule y el hash del commit al que apunta
-
-```shell
-git status
-On branch main
-new file:   .gitmodules
-new file:   nombre_submodule (new commits)
-```
-
-Si hacemos git add y git diff, veremos que no muestra los cambios en el submodule como una carpeta, sino como el hash del commit al que apunta el submodule.
-
-```shell
-git add .
-git diff --cached
-diff --git a/.gitmodules b/.gitmodules
-new file mode 100644
-index 0000000..e69de29
---- /dev/null
-+++ b/.gitmodules
-@@ -0,0 +1,3 @@
-+ [submodule "nombre_submodule"]
-+	path = nombre_submodule
-+	url = <url>
-diff --git a/nombre_submodule b/nombre_submodule
-new file mode 160000
-index 0000000..4b825dc
---- /dev/null
-+++ b/nombre_submodule
-@@ -0,0 +1 @@
-+Subproject commit 4b825dc642cb6eb9a060e54bf8d69288fbee4904
-```
-
-Lo siguiente paso es hacer un commit para guardar los cambios en el repositorio principal.
-
-```shell
-git commit -m "Añadido submodule nombre_submodule"
-```
-
-###### Clonado de un repositorio con submodules: inicialización
-
-Cuando se clona un repositorio que contiene submodules, los submodules no se clonan automáticamente. Se crea la estructura de directorios, pero no se descargan los ficheros del submodule. Es necesario inicializarlos y actualizarlos con los comandos `git submodule init` (para registrar el submodule) y `git submodule update` (para descargar los ficheros del submodule)
-
-```shell
-git submodule init
-git submodule update
-```
-
-Si se quiere clonar el repositorio y los submodules en un solo paso, se puede utilizar el modificador `--recurse-submodules` del comando `git clone`
-
-```shell
-git clone --recurse-submodules <url>
-```
-
-##### Actualizaciones de un submodule
-
-Los submodules son independientes del repositorio principal, por lo que se pueden actualizar de forma independiente. Para actualizar un submodule, existen dos mecanismos.
-
-- Primera opción
-
-se debe entrar en el directorio del submodule y hacer un `git pull` para descargar los cambios del repositorio remoto del submodule.
-
-```shell
-cd nombre_submodule
-git pull
-```
-
-Como se habrá actualizado el submodule apuntando al nuevo commit final de repo al que apunta , el repositorio principal detectará que hay cambios pendientes de commit en el submodule. Se debe hacer un `git add` y un `git commit` para guardar los cambios en el repositorio principal.
-
-```shell
-cd ..
-git add nombre_submodule
-git commit -m "Actualizado submodule nombre_submodule"
-```
-
-- Segunda opción
-
-Se puede actualizar el submodule desde el repositorio principal, sin entrar en el directorio del submodule, con el comando `git submodule update --remote`
-
-```shell
-git submodule update --remote --recursive
-```
-
-De esta forma se actualizarían todos los submódulos que haya en el repositorio, incluidos los submódulos de los submódulos (si los hubiera).
-
-Como en el caso anterior, se debe hacer un `git add` y un `git commit` para guardar los cambios en el repositorio principal.
-
-```shell
-git add .
-git commit -m "Actualizado submodule nombre_submodule"
-```
-
-Cuando otros usuarios han actualizado los submodulos y lo han reflejado en el repo compartido, al hacer un `git pull` en el repositorio principal, los submodules no se actualizan automáticamente. Se debe hacer un `git pull --recurse-submodules` para actualizar los submodules a la versión que indica el repositorio principal.
-
-### BUENAS PRÁCTICAS
-
-- Commits atómicos
-- Commits frecuentes
-- No commits de trabajo a medias
-- Test antes de commit
-- Buenos mensajes de commit
-- Usar branches, feature-branching
-- Fijar un workflow común
-
-### Apéndice. UTILIDADES. INTEGRACIÓN CON OTRAS HERRAMIENTAS Y ENTORNOS
-
-- GitK, GitG y git gui | git log graph | formato git log
-- IntelliJ
-- SourceTree
-- Github
-- GitLab
-- Bitbucket

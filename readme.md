@@ -180,15 +180,17 @@ Desarrollo del curso en la carpeta Oficial -> [repo](https://github.com/IconoTC/
   - Creación
   - Aplicación
 
-<!-- ### Día 4 (Jueves 16 Octubre 2025)
+### Día 4 (Jueves 16 Octubre 2025)
 
 - Repositorios remotos
+
   - Repositorios "bare"
   - Clonar repositorios: git clone
   - git remote
   - git push
     - push tags
   - git pull
+
     - git fetch
     - git merge / git rebase
     - Conflictos
@@ -207,17 +209,21 @@ Desarrollo del curso en la carpeta Oficial -> [repo](https://github.com/IconoTC/
       - Resolución de conflictos en local
       - Eliminar la rama una vez hecho el merge
 
+- [Descanso]
+
 - Flujos de trabajo (workflows)
 
   - Git Flow
   - GitLab Flow
   - GitHub Flow
     - Ship-Show-Ask
+  
+- Buenas prácticas
 
+<!--
 - GitHub
   - Hosting de Repositorios
     - repositorios públicos y privados; ramas y remotos: push y pull (v.s.)
-    - tags y releases
     - forks
   - Colaboración
     - pull requests: revisión de código y comentarios (v.s.)
@@ -227,19 +233,19 @@ Desarrollo del curso en la carpeta Oficial -> [repo](https://github.com/IconoTC/
       - issues y proyectos; milestones
     - Wikis
     - Gists
-  - CI/CD
-    - GitHub Pages -->
+  -->
 
 <!-- ### Día 5 (Jueves 17 Octubre 2025)
 
 - GitHub (continuación)
-  - GitHub Pages
   - Integración continua / Entrega continua (CI/CD)
-  - GitHub Actions
-    - Introducción
-    - Workflow. Partes y sintaxis
-    - Configuración y ejecución de un workflow
-    - Secretos
+    - GitHub Pages
+    - GitHub Actions
+      - Introducción
+      - Workflow. Partes y sintaxis
+      - Configuración y ejecución de un workflow
+      - Secretos
+    - tags y releases
 - GitLab
   - Similitudes y diferencias con GitHub
   - Merge Request

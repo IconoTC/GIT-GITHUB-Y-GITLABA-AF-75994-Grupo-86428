@@ -198,7 +198,7 @@ Desarrollo del curso en la carpeta Oficial -> [repo](https://github.com/IconoTC/
   - Ramas remotas
     - Seguimiento de ramas remotas (tracking branches)
     - Crear ramas locales a partir de ramas remotas: fetch + checkout / switch -c
-    - Subir ramas locales a ramas remotas
+    - Subir ramas locales a ramas remotas: -u
     - Eliminar ramas remotas
   - Pull requests (GitHub) / Merge requests (GitLab)
     - Flujo de trabajo típico
@@ -234,24 +234,32 @@ Desarrollo del curso en la carpeta Oficial -> [repo](https://github.com/IconoTC/
     - Gists
     - GitHub Pages
 
-<!-- ### Día 5 (Jueves 17 Octubre 2025)
+### Día 5 (Jueves 17 Octubre 2025)
 
 - GitHub (continuación)
   - GitHub CLI
   - GitHub Pages (Práctica)
   - Releases
 - Integración continua / Entrega continua (CI/CD)
+
   - GitHub Actions
     - Introducción
     - Workflow. Partes y sintaxis
     - Configuración y ejecución de un workflow
-    - Secretos
+
+- [Descanso]
+
+- Integración continua / Entrega continua (CI/CD)
+  - GitHub Actions (continuación)
+    - Ejemplo de CI (build y test) de una aplicación JS
+    - CD: despliegues
+      - Secretos
+      - Despliegue en GitHub Pages
   - GitLab
-    - Similitudes y diferencias con GitHub
-    - Merge Request
+    - Similitudes y diferencias con GitHub. Merge Request
     - CI/CD en GitLab
       - Introducción a CI/CD
       - Configuración de un pipeline: stages y jobs
       - Artefactos
       - Variables
--->
+      - Despliegues: environments

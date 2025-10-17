@@ -147,7 +147,7 @@
         - [Tipos de releases](#tipos-de-releases)
         - [Relación entre tags y releases](#relación-entre-tags-y-releases)
         - [Buenas prácticas y opciones para releases](#buenas-prácticas-y-opciones-para-releases)
-        - [Flujo de trabajo para releases en Git](#flujo-de-trabajo-para-releases-en-git)
+        - [Flujo de trabajo para releases con Git usando GitFlow](#flujo-de-trabajo-para-releases-con-git-usando-gitflow)
         - [Gestión de releases en las plataformas GitHub/GitLab](#gestión-de-releases-en-las-plataformas-githubgitlab)
           - [Crear una release en GitHub](#crear-una-release-en-github)
           - [Crear una release con el GitLab CLI](#crear-una-release-con-el-gitlab-cli)
@@ -3361,7 +3361,7 @@ Algunas herramientas útiles para gestionar releases de forma automatizada:
 - **standard-version**: Generación automática de CHANGELOG
 - **release-please**: Herramienta de Google para automatizar releases
 
-##### Flujo de trabajo para releases en Git
+##### Flujo de trabajo para releases con Git usando GitFlow
 
 [1]. Preparación de la release
 

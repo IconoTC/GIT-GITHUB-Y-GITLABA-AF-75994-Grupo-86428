@@ -13,7 +13,8 @@
   - [CI/CD en GitHub. GitHub Actions](#cicd-en-github-github-actions)
     - [Ejemplo existente en GitHub](#ejemplo-existente-en-github)
     - [Ejemplo de configuración de CI/CD con GitHub Actions](#ejemplo-de-configuración-de-cicd-con-github-actions)
-    - [Automatización con GitHub Actions](#automatización-con-github-actions)
+    - [Automatización de una release con GitHub Actions](#automatización-de-una-release-con-github-actions)
+    - [CD: Despliegue de Astro en Git](#cd-despliegue-de-astro-en-git)
     - [CD: Despliegue continuo en Vercel](#cd-despliegue-continuo-en-vercel)
     - [CD: Despliegue continuo en Azure](#cd-despliegue-continuo-en-azure)
     - [Ejercicios](#ejercicios)
@@ -423,7 +424,7 @@ Los scripts de package.json pueden ser tan simples como:
 
 Es importante que no incluyan comandos interactivos, ya que los workflows de GitHub Actions se ejecutan en un entorno virtualizado y no permiten la interacción con la consola. De la misma forma hay que evitar modificadores de tipo `--watch` que harían que el script no termine nunca.
 
-### Automatización con GitHub Actions
+### Automatización de una release con GitHub Actions
 
 ```yaml
 # .github/workflows/release.yml
@@ -457,6 +458,59 @@ jobs:
           body: |
             ## Changes
             - Auto-generated release from tag ${{ github.ref }}
+```
+
+### CD: Despliegue de Astro en Git
+
+```yaml
+name: Deploy Astro Site
+# Trigger the workflow every time you push to the `main` branch
+# Using a different branch name? Replace `main` with your branch’s name
+on:
+  push:
+    branches:
+      - main
+
+# Allows you to run this workflow manually from the Actions tab on GitHub.
+workflow_dispatch:
+
+# Allow this job to clone the repo and create a page deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install, build, and upload your site
+        uses: withastro/action@v3
+
+      # - name: Install dependencies
+      #   run: npm ci
+
+      # - name: Build Astro site
+      #   run: npm run build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 ```
 
 ### CD: Despliegue continuo en Vercel
